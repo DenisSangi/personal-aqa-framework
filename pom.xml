@@ -11,7 +11,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <selenide-testng.version>7.2.3</selenide-testng.version>
         <testng.version>7.10.1</testng.version>
-        <allure-java-commons.version>2.35.3</allure-java-commons.version>
+        <allure-testng.version>2.35.3</allure-testng.version>
         <lombok.version>1.18.46</lombok.version>
         <jsoup.version>1.22.2</jsoup.version>
 
@@ -32,8 +32,8 @@
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-java-commons</artifactId>
-            <version>${allure-java-commons.version}</version>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure-testng.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
