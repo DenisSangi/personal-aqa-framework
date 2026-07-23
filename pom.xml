@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.github.DenisSangi</groupId>
+    <artifactId>personal-aqa-framework</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <selenide-testng.version>7.2.3</selenide-testng.version>
+        <testng.version>7.10.1</testng.version>
+        <allure-java-commons.version>2.35.3</allure-java-commons.version>
+        <lombok.version>1.18.46</lombok.version>
+        <jsoup.version>1.22.2</jsoup.version>
+
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide-testng</artifactId>
+            <version>${selenide-testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-java-commons</artifactId>
+            <version>${allure-java-commons.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+</project>
