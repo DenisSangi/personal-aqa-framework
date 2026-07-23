@@ -3,7 +3,7 @@ import org.testng.annotations.Test;
 
 public class PlaceholderTest {
 
-    private int sum = 7;
+    private final int sum = 7;
 
     @Test
     public void PlaceHolderTestPositive() {
