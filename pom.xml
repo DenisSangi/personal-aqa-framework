@@ -15,6 +15,7 @@
         <allure-testng.version>2.35.3</allure-testng.version>
         <lombok.version>1.18.46</lombok.version>
         <jsoup.version>1.22.2</jsoup.version>
+        <rest-assured.version>6.0.1</rest-assured.version>
     </properties>
 
 
@@ -46,6 +47,11 @@
             <artifactId>jsoup</artifactId>
             <version>${jsoup.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
         </dependency>
     </dependencies>
 
