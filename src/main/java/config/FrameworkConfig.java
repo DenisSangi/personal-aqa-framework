@@ -21,6 +21,9 @@ public class FrameworkConfig {
     }
 
     public static final String APP_URL = getValue("BASE_URL");
+    public static final String APP_USERNAME = getValue("USERNAME");
+    public static final String APP_USER_EMAIL = getValue("USER_EMAIL");
+    public static final String APP_USER_PASSWORD = getValue("USER_PASSWORD");
 
     public static String getValue(String key) {
         String envValue = System.getenv(key);
