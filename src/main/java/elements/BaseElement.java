@@ -1,0 +1,24 @@
+package elements;
+
+import com.codeborne.selenide.SelenideElement;
+
+import static com.codeborne.selenide.Condition.exist;
+import static com.codeborne.selenide.Condition.visible;
+
+public abstract class BaseElement<T extends BaseElement<T>> {
+
+    protected SelenideElement element;
+
+    public BaseElement(SelenideElement selenideElement) {
+        this.element = selenideElement;
+    }
+
+    @SuppressWarnings("unchecked")
+    public T waitAndGetElement() {
+        element.should(exist);
+        element.scrollIntoView(true);
+        element.shouldBe(visible);
+        return (T) this;
+    }
+
+}
