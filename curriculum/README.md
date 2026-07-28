@@ -37,4 +37,5 @@
 - [P0-T1 — Скелет репозитория и Maven-тулинга](P0-T1-repo-maven-skeleton.md) — ✅ аппрувед 2026-07-23.
 - [P1-T1 — Config Facade + порядок разрешения параметров](P1-T1-config-facade.md) — ✅ аппрувед 2026-07-24.
 - [P2-T1 — RandomGenerators](P2-T1-random-generators.md) — ✅ аппрувед 2026-07-27.
-- [P2-T2 — DateTimeUtil](P2-T2-datetime-util.md) — задача дана 2026-07-27, начало реализации перенесено на следующую сессию.
+- [P2-T2 — DateTimeUtil](P2-T2-datetime-util.md) — ✅ аппрувед 2026-07-28.
+- [P3-T1 — BaseElement + InputElement](P3-T1-base-element-input.md) — ✅ аппрувед 2026-07-28.
