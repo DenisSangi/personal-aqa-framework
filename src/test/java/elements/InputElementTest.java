@@ -3,11 +3,17 @@ package elements;
 import com.codeborne.selenide.Selenide;
 import config.FrameworkConfig;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.$;
 
 public class InputElementTest {
+
+    @AfterMethod
+    public void quit() {
+        Selenide.closeWebDriver();
+    }
 
     @Test
     public void testSetValue() {
