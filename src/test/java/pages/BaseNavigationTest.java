@@ -4,10 +4,12 @@ import com.codeborne.selenide.Selenide;
 import config.FrameworkConfig;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import reusableactions.LoginReusableActions;
 
 public class BaseNavigationTest {
 
     private final HomePage homePage = new HomePage();
+    private final LoginReusableActions loginReusableActions = new LoginReusableActions();
 
     @AfterMethod
     public void tearDown() {
@@ -25,15 +27,7 @@ public class BaseNavigationTest {
 
     @Test
     public void loginFlowTest() {
-        Selenide.open(FrameworkConfig.APP_URL);
-
-        homePage.verifyPageIsOpen()
-                .clickSignupLoginLink()
-                .verifyPageIsOpen()
-                .setEmail(FrameworkConfig.APP_USER_EMAIL)
-                .setPassword(FrameworkConfig.APP_USER_PASSWORD)
-                .clickLoginButton()
-                .verifyLoggedUsername(FrameworkConfig.APP_USERNAME);
+        loginReusableActions.loginAsDefaultUser();
     }
 
 }
