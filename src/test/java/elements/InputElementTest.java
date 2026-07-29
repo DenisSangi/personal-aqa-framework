@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class InputElementTest {
 
     @AfterMethod
-    public void quit() {
+    public void tearDown() {
         Selenide.closeWebDriver();
     }
 

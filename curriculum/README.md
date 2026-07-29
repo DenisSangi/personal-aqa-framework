@@ -40,3 +40,4 @@
 - [P2-T2 — DateTimeUtil](P2-T2-datetime-util.md) — ✅ аппрувед 2026-07-28.
 - [P3-T1 — BaseElement + InputElement](P3-T1-base-element-input.md) — ✅ аппрувед 2026-07-28.
 - [P3-T2 — ButtonElement / DropdownElement / TableElement](P3-T2-button-dropdown-table.md) — ✅ аппрувед 2026-07-28.
+- [P4-T1 — HomePage/LoginPage + навигационный переход](P4-T1-home-login-page.md) — ✅ аппрувед 2026-07-29.

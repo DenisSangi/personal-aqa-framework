@@ -11,7 +11,7 @@ import static org.testng.Assert.*;
 public class ButtonElementTest {
 
     @AfterMethod
-    public void quit() {
+    public void tearDown() {
         Selenide.closeWebDriver();
     }
 
