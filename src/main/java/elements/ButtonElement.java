@@ -13,4 +13,9 @@ public class ButtonElement extends BaseElement<ButtonElement> {
         waitAndGetElement();
         element.click();
     }
+
+    public String getText() {
+        waitAndGetElement();
+        return element.getText();
+    }
 }
