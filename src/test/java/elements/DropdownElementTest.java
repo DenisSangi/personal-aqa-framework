@@ -12,7 +12,7 @@ import static org.testng.Assert.*;
 public class DropdownElementTest {
 
     @AfterMethod
-    public void quit() {
+    public void tearDown() {
         Selenide.closeWebDriver();
     }
 

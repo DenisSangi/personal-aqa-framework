@@ -1,6 +1,7 @@
 package elements;
 
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebElementCondition;
 
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
@@ -18,6 +19,13 @@ public abstract class BaseElement<T extends BaseElement<T>> {
         element.should(exist);
         element.scrollIntoView(true);
         element.shouldBe(visible);
+        return (T) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public T shouldBe(WebElementCondition... conditions) {
+        waitAndGetElement();
+        element.shouldBe(conditions);
         return (T) this;
     }
 

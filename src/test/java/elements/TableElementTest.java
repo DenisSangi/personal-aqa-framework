@@ -13,7 +13,7 @@ import static org.testng.Assert.assertTrue;
 public class TableElementTest {
 
     @AfterMethod
-    public void quit() {
+    public void tearDown() {
         Selenide.closeWebDriver();
     }
 
