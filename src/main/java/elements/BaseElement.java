@@ -29,4 +29,11 @@ public abstract class BaseElement<T extends BaseElement<T>> {
         return (T) this;
     }
 
+    @SuppressWarnings("unchecked")
+    public T shouldHave(WebElementCondition... conditions) {
+        waitAndGetElement();
+        element.shouldHave(conditions);
+        return (T) this;
+    }
+
 }
