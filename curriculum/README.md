@@ -43,4 +43,5 @@
 - [P4-T1 — HomePage/LoginPage + навигационный переход](P4-T1-home-login-page.md) — ✅ аппрувед 2026-07-29.
 - [P4-T2 — Полноценный LoginPage + сквозной сценарий логина](P4-T2-login-scenario.md) — ✅ аппрувед 2026-07-29.
 - [P5-T1 — LoginReusableActions](P5-T1-login-reusable-actions.md) — ✅ аппрувед 2026-07-29.
-- [P6-T1 — BaseTest (Template Method) + lifecycle](P6-T1-base-test-lifecycle.md) — дана 2026-07-30, обсуждение и код впереди.
+- [P6-T1 — BaseTest (Template Method) + lifecycle](P6-T1-base-test-lifecycle.md) — ✅ аппрувед 2026-07-30.
+- [P6-T2 — Listener на падение теста (скриншот)](P6-T2-failure-screenshot-listener.md) — дана 2026-07-30, обсуждение и код впереди.
