@@ -2,7 +2,7 @@ package elements;
 
 import com.codeborne.selenide.Selenide;
 import config.FrameworkConfig;
-import org.testng.annotations.AfterMethod;
+import core.BaseTest;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -10,12 +10,7 @@ import static com.codeborne.selenide.WebDriverConditions.url;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class TableElementTest {
-
-    @AfterMethod
-    public void tearDown() {
-        Selenide.closeWebDriver();
-    }
+public class TableElementTest extends BaseTest {
 
     @Test
     public void testGetRows() {

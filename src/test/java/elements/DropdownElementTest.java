@@ -2,19 +2,14 @@ package elements;
 
 import com.codeborne.selenide.Selenide;
 import config.FrameworkConfig;
-import org.testng.annotations.AfterMethod;
+import core.BaseTest;
 import org.testng.annotations.Test;
 import utils.RandomDataGenerator;
 
 import static com.codeborne.selenide.Selenide.$;
 import static org.testng.Assert.*;
 
-public class DropdownElementTest {
-
-    @AfterMethod
-    public void tearDown() {
-        Selenide.closeWebDriver();
-    }
+public class DropdownElementTest extends BaseTest {
 
     @Test
     public void testSelectOption() {

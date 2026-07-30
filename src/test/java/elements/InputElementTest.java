@@ -2,18 +2,13 @@ package elements;
 
 import com.codeborne.selenide.Selenide;
 import config.FrameworkConfig;
+import core.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class InputElementTest {
-
-    @AfterMethod
-    public void tearDown() {
-        Selenide.closeWebDriver();
-    }
+public class InputElementTest extends BaseTest {
 
     @Test
     public void testSetValue() {
