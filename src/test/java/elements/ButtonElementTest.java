@@ -2,18 +2,13 @@ package elements;
 
 import com.codeborne.selenide.Selenide;
 import config.FrameworkConfig;
-import org.testng.annotations.AfterMethod;
+import core.BaseTest;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.$;
 import static org.testng.Assert.*;
 
-public class ButtonElementTest {
-
-    @AfterMethod
-    public void tearDown() {
-        Selenide.closeWebDriver();
-    }
+public class ButtonElementTest extends BaseTest {
 
     @Test
     public void testClick() {

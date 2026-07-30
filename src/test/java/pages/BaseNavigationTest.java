@@ -2,19 +2,14 @@ package pages;
 
 import com.codeborne.selenide.Selenide;
 import config.FrameworkConfig;
-import org.testng.annotations.AfterMethod;
+import core.BaseTest;
 import org.testng.annotations.Test;
 import reusableactions.LoginReusableActions;
 
-public class BaseNavigationTest {
+public class BaseNavigationTest extends BaseTest {
 
     private final HomePage homePage = new HomePage();
     private final LoginReusableActions loginReusableActions = new LoginReusableActions();
-
-    @AfterMethod
-    public void tearDown() {
-        Selenide.closeWebDriver();
-    }
 
     @Test
     public void baseNavigationTest() {
