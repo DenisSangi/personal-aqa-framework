@@ -1,6 +1,7 @@
 package utils;
 
 
+import java.time.LocalDate;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomDataGenerator {
@@ -39,5 +40,15 @@ public class RandomDataGenerator {
 
     public static String generateEmail() {
         return generateAlphanumeric(10) + '@' + Domains.getRandomDomain();
+    }
+
+    public static LocalDate generateDateFromTodayOfYearsAgo(int yearsAgo) {
+        LocalDate today = LocalDate.now();
+        LocalDate exactYear = today.minusYears(yearsAgo);
+        return exactYear.minusDays(ThreadLocalRandom.current().nextInt(365));
+    }
+
+    public static int generateNumberInRange(int min, int max) {
+        return ThreadLocalRandom.current().nextInt(min, max);
     }
 }

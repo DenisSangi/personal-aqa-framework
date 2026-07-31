@@ -1,5 +1,6 @@
-package api;
+package api.services;
 
+import api.core.BaseApiService;
 import io.restassured.response.Response;
 
 import java.util.HashMap;

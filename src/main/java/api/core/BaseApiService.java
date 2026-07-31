@@ -1,4 +1,4 @@
-package api;
+package api.core;
 
 import config.FrameworkConfig;
 
