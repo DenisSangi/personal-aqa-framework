@@ -44,4 +44,5 @@
 - [P4-T2 — Полноценный LoginPage + сквозной сценарий логина](P4-T2-login-scenario.md) — ✅ аппрувед 2026-07-29.
 - [P5-T1 — LoginReusableActions](P5-T1-login-reusable-actions.md) — ✅ аппрувед 2026-07-29.
 - [P6-T1 — BaseTest (Template Method) + lifecycle](P6-T1-base-test-lifecycle.md) — ✅ аппрувед 2026-07-30.
-- [P6-T2 — Listener на падение теста (скриншот)](P6-T2-failure-screenshot-listener.md) — дана 2026-07-30, обсуждение и код впереди.
+- [P6-T2 — Listener на падение теста (скриншот)](P6-T2-failure-screenshot-listener.md) — ✅ аппрувед 2026-07-30 (закрыта живой сессией в тот же день, запись обнаружена и восстановлена задним числом в Сессии 7).
+- [P7-T1 — RestClient adapter + LoginApiService](P7-T1-rest-client-login-service.md) — ✅ аппрувед 2026-07-31.

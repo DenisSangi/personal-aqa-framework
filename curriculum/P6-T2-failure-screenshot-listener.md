@@ -65,7 +65,11 @@ public class GreenphireTestListener extends TestListener {
 
 ## Типичные ошибки
 
-_Заполняется после ревью._
+**Оговорка:** та же, что в P6-T1 — сессия 2026-07-30 закрыла эту задачу вживую, стенограмма ревью не сохранилась. Ниже — реконструкция по финальному коммиту (`1092de6`), не пересказ диалога.
+
+- `ScreenshotOnFailureListener implements ITestListener` реализован по Варианту B, как требовал DoD, — отдельный класс, `onTestFailure(ITestResult result)` → `Selenide.screenshot(result.getName())`, подключён единожды через `@Listeners(ScreenshotOnFailureListener.class)` на `BaseTest`.
+- Тем же коммитом `BaseTest.tearDown()` дополнительно получил `alwaysRun = true` (в версии из P6-T1 его не было) — это ровно тот нюанс, на который прямо указывала ссылка на `GreenphireBaseTest.java` в задаче P6-T1 («обрати внимание на сам факт этого параметра»). Похоже, что он был замечен и добавлен именно на этой задаче, а не пропущен — без `alwaysRun = true` `@AfterMethod` не выполнился бы для теста, упавшего до штатного завершения, и браузер остался бы висеть.
+- Попутно удалён неиспользуемый `PlaceholderTest.java`, оставшийся от P0-T1 — не по теме задачи, но валидная гигиена, не ошибка.
 
 ## Ссылка на реальный код java-selenide-pp
 
