@@ -1,5 +1,6 @@
 package api;
 
+import api.services.LoginApiService;
 import config.FrameworkConfig;
 import org.testng.annotations.Test;
 

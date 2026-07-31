@@ -1,4 +1,4 @@
-package api;
+package api.core;
 
 import io.restassured.response.Response;
 
@@ -25,5 +25,12 @@ public class RestClient {
                 .baseUri(baseUrl)
                 .formParams(formParams)
                 .post(endpoint);
+    }
+
+    public Response delete(String endpoint, Map<String, String> formParams) {
+        return given()
+                .baseUri(baseUrl)
+                .formParams(formParams)
+                .delete(endpoint);
     }
 }
