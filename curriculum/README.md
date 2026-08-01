@@ -47,3 +47,4 @@
 - [P6-T2 — Listener на падение теста (скриншот)](P6-T2-failure-screenshot-listener.md) — ✅ аппрувед 2026-07-30 (закрыта живой сессией в тот же день, запись обнаружена и восстановлена задним числом в Сессии 7).
 - [P7-T1 — RestClient adapter + LoginApiService](P7-T1-rest-client-login-service.md) — ✅ аппрувед 2026-07-31.
 - [P7-T2 — AccountModel (Builder) + AccountApiService + AccountFactory](P7-T2-account-model-factory.md) — ✅ аппрувед 2026-07-31.
+- [P8-T1 — @DataProvider + параметризованный тест](P8-T1-dataprovider.md) — ✅ аппрувед 2026-08-01. Там же — решение по P8-T2: отложена до реальной потребности (критерий ≥3-4 связанных сущностей не выполняется), Фаза 8 закрыта.
