@@ -48,3 +48,4 @@
 - [P7-T1 — RestClient adapter + LoginApiService](P7-T1-rest-client-login-service.md) — ✅ аппрувед 2026-07-31.
 - [P7-T2 — AccountModel (Builder) + AccountApiService + AccountFactory](P7-T2-account-model-factory.md) — ✅ аппрувед 2026-07-31.
 - [P8-T1 — @DataProvider + параметризованный тест](P8-T1-dataprovider.md) — ✅ аппрувед 2026-08-01. Там же — решение по P8-T2: отложена до реальной потребности (критерий ≥3-4 связанных сущностей не выполняется), Фаза 8 закрыта.
+- [P9-T1 — Docker Postgres + схема + сид-данные](P9-T1-docker-postgres-seed.md) — ✅ аппрувед 2026-08-01.
