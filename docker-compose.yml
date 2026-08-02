@@ -4,7 +4,7 @@ services:
     container_name: aqa-postgres
     environment:
       POSTGRES_DB: aqa_db
-      POSTGRES_USER: postgres
+      POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: postgres
     ports:
       - "5434:5432"
