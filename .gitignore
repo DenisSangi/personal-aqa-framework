@@ -12,3 +12,4 @@
 /PROGRESS.md
 /STARTING-PROMPT.md
 /build/
+src/main/resources/dbconnect.properties

@@ -16,6 +16,7 @@
         <lombok.version>1.18.46</lombok.version>
         <jsoup.version>1.22.2</jsoup.version>
         <rest-assured.version>6.0.1</rest-assured.version>
+        <postgresql.version>42.7.13</postgresql.version>
     </properties>
 
 
@@ -52,6 +53,11 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>${rest-assured.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
         </dependency>
     </dependencies>
 
