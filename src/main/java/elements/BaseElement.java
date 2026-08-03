@@ -36,4 +36,8 @@ public abstract class BaseElement<T extends BaseElement<T>> {
         return (T) this;
     }
 
+    public String getText() {
+        waitAndGetElement();
+        return element.getText();
+    }
 }

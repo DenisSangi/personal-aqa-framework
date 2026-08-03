@@ -8,11 +8,10 @@ public class LoginReusableActions {
 
     public HomePage loginAsDefaultUser() {
         Selenide.open(FrameworkConfig.APP_URL);
-
         return new HomePage().verifyPageIsOpen()
                 .clickSignupLoginLink()
                 .verifyPageIsOpen()
-                .setEmail(FrameworkConfig.APP_USER_EMAIL)
+                .setLoginEmail(FrameworkConfig.APP_USER_EMAIL)
                 .setPassword(FrameworkConfig.APP_USER_PASSWORD)
                 .clickLoginButton()
                 .verifyLoggedUsername(FrameworkConfig.APP_USERNAME);

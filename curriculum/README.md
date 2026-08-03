@@ -51,3 +51,4 @@
 - [P9-T1 — Docker Postgres + схема + сид-данные](P9-T1-docker-postgres-seed.md) — ✅ аппрувед 2026-08-01.
 - [P9-T2 — DatabaseConnectionUtil (JDBC)](P9-T2-database-connection-util.md) — ✅ аппрувед 2026-08-02.
 - [P9-T3 — SQL-верификация в реальном тесте](P9-T3-sql-verification-test.md) — ✅ аппрувед 2026-08-02. Фаза 9 закрыта целиком.
+- [P10-T1 — Регистрация/логин: 2–3 сценария](P10-T1-registration-login-tests.md) — ✅ аппрувед 2026-08-03.
