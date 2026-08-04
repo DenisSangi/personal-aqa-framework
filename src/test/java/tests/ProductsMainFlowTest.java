@@ -19,7 +19,8 @@ public class ProductsMainFlowTest extends BaseTest {
     private CartPage cartPage;
     private final String testingProductOne = "Winter Top",
             testingProductTwo = "Blue Top",
-            testingProductThree = "Summer White Top";
+            testingProductThree = "Summer White Top",
+            productCategory = "\nWomen > Tops";
 
 
     @BeforeMethod
@@ -56,13 +57,13 @@ public class ProductsMainFlowTest extends BaseTest {
                 .clickModalViewCartButton();
         cartPage.verifyPageIsOpen();
         assertEquals(cartPage.getCartTableSize(), 3);
-        assertEquals(cartPage.getCellValueInCartTable(0, TableHeaders.CT_DESCRIPTION.getHeaderName()), testingProductOne);
-        assertEquals(cartPage.getCellValueInCartTable(0, TableHeaders.CT_PRICE.getHeaderName()), "Rs. 500");
+        assertEquals(cartPage.getCellValueInCartTable(0, TableHeaders.CT_DESCRIPTION.getHeaderName()), testingProductOne + productCategory);
+        assertEquals(cartPage.getCellValueInCartTable(0, TableHeaders.CT_PRICE.getHeaderName()), "Rs. 600");
         assertEquals(cartPage.getCellValueInCartTable(0, TableHeaders.CT_QUANTITY.getHeaderName()), "1");
-        assertEquals(cartPage.getCellValueInCartTable(1, TableHeaders.CT_DESCRIPTION.getHeaderName()), testingProductTwo);
-        assertEquals(cartPage.getCellValueInCartTable(1, TableHeaders.CT_PRICE.getHeaderName()), "Rs. 600");
+        assertEquals(cartPage.getCellValueInCartTable(1, TableHeaders.CT_DESCRIPTION.getHeaderName()), testingProductTwo + productCategory);
+        assertEquals(cartPage.getCellValueInCartTable(1, TableHeaders.CT_PRICE.getHeaderName()), "Rs. 500");
         assertEquals(cartPage.getCellValueInCartTable(1, TableHeaders.CT_QUANTITY.getHeaderName()), "1");
-        assertEquals(cartPage.getCellValueInCartTable(2, TableHeaders.CT_DESCRIPTION.getHeaderName()), testingProductThree);
+        assertEquals(cartPage.getCellValueInCartTable(2, TableHeaders.CT_DESCRIPTION.getHeaderName()), testingProductThree + productCategory);
         assertEquals(cartPage.getCellValueInCartTable(2, TableHeaders.CT_PRICE.getHeaderName()), "Rs. 400");
         assertEquals(cartPage.getCellValueInCartTable(2, TableHeaders.CT_QUANTITY.getHeaderName()), "2");
     }
