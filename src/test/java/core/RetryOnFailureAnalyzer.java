@@ -1,5 +1,7 @@
 package core;
 
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
@@ -9,10 +11,20 @@ public class RetryOnFailureAnalyzer implements IRetryAnalyzer {
     private static final int MAX = 3;
 
     @Override
-    public boolean retry(ITestResult result){
-        if (count < MAX) {
+    public boolean retry(ITestResult result) {
+        if (isTransient(result.getThrowable()) && count < MAX) {
             count++;
             return true;
+        }
+        return false;
+    }
+
+    private boolean isTransient(Throwable throwable) {
+        while (throwable != null) {
+            if (throwable instanceof TimeoutException || throwable instanceof StaleElementReferenceException) {
+                return true;
+            }
+            throwable = throwable.getCause();
         }
         return false;
     }
