@@ -1,5 +1,6 @@
 package elements;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebElementCondition;
 
@@ -16,6 +17,7 @@ public abstract class BaseElement<T extends BaseElement<T>> {
 
     @SuppressWarnings("unchecked")
     public T waitAndGetElement() {
+        Selenide.executeJavaScript("document.querySelectorAll('ins[data-vignette-loaded=\"true\"]').forEach(e => e.remove());");
         element.should(exist);
         element.scrollIntoView(true);
         element.shouldBe(visible);
