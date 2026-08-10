@@ -44,7 +44,7 @@
 ## Теория
 
 Новой теории не требуется — все нужные концепции уже разобраны:
-- Page Object / Fluent Interface / навигация `return new NextPage()` — [theory/page-object-and-navigation.md](../theory/page-object-and-navigation.md).
+- Page Object / Fluent Interface / навигация `return new NextPage()` — [theory/06-page-object-and-navigation.md](../theory/06-page-object-and-navigation.md).
 - Facade (Reusable Actions) — разобран в контексте P5-T1.
 - `@DataProvider`/негативные креды через `RandomDataGenerator` — уже применялось в P8-T1, тот же приём годится для негативного логина здесь.
 

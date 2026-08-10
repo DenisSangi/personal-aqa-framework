@@ -67,7 +67,7 @@ curl -X POST .../api/verifyLogin -d "email=...&password=..."
 
 ## Теория
 
-Новый материал — `theory/rest-assured-basics-and-adapter.md`: `given()/when()/then()` синтаксис REST Assured, `RequestSpecification`, form-параметры vs JSON body, чтение полей из JSON-ответа через `.jsonPath()` (без модели — модели будут в P7-T2), и короткое связывание с Adapter (уже разобран в Фазе 3 — не переобъясняется с нуля, только перенос на новый слой).
+Новый материал — `theory/09-rest-assured-basics-and-adapter.md`: `given()/when()/then()` синтаксис REST Assured, `RequestSpecification`, form-параметры vs JSON body, чтение полей из JSON-ответа через `.jsonPath()` (без модели — модели будут в P7-T2), и короткое связывание с Adapter (уже разобран в Фазе 3 — не переобъясняется с нуля, только перенос на новый слой).
 
 ## Definition of Done
 

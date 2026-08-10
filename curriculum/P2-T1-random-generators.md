@@ -29,7 +29,7 @@
 - `java.util.Random`: как устроен генератор (seed, `nextInt()`, `nextInt(bound)`), почему у объекта есть внутреннее состояние.
 - `ThreadLocalRandom.current()`: чем отличается от `new Random()` при параллельном выполнении тестов (нет конкуренции за один и тот же объект между потоками).
 - Диапазоны символов: как получить случайную букву/цифру через арифметику над `char`/`int`, не выписывая алфавит вручную.
-- Файл: [theory/random-and-threadlocalrandom.md](../theory/random-and-threadlocalrandom.md)
+- Файл: [theory/03-random-and-threadlocalrandom.md](../theory/03-random-and-threadlocalrandom.md)
 
 ## Definition of Done
 

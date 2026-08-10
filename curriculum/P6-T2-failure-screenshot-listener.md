@@ -53,7 +53,7 @@ public class GreenphireTestListener extends TestListener {
 
 ## Теория
 
-Новый материал — `theory/observer-and-testng-listeners.md`: Observer на изолированном примере (без TestNG — простая «кнопка» и подписанные на её клик слушатели), затем перенос на `ITestListener`/`@Listeners` и разбор `Selenide.screenshot(...)`.
+Новый материал — `theory/08-observer-and-testng-listeners.md`: Observer на изолированном примере (без TestNG — простая «кнопка» и подписанные на её клик слушатели), затем перенос на `ITestListener`/`@Listeners` и разбор `Selenide.screenshot(...)`.
 
 ## Definition of Done
 

@@ -82,7 +82,7 @@ response.jsonPath().getString("message");       // ещё одно поле
 
 ## 5. Снова Adapter — короткое напоминание, не с нуля
 
-Уже разбирался в Фазе 3 (`theory/selenide-basics-and-generics.md`, где `BaseElement` прятал Selenide). Идея переносится один в один:
+Уже разбирался в Фазе 3 (`theory/05-selenide-basics-and-generics.md`, где `BaseElement` прятал Selenide). Идея переносится один в один:
 
 | | Что прячет | Что было бы без адаптера |
 |---|---|---|

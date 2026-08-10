@@ -44,7 +44,7 @@ public void tearDown() {
 
 ## Теория
 
-Новый материал — `theory/testng-lifecycle-and-template-method.md`: полный порядок выполнения хуков TestNG (`@BeforeSuite`/`@BeforeClass`/`@BeforeMethod`/`@Test`/`@AfterMethod`/`@AfterClass`), зачем `alwaysRun = true` на teardown-хуках, и как наследование тестовых классов реализует Template Method (базовый класс фиксирует шаги lifecycle, наследник добавляет только тело `@Test`).
+Новый материал — `theory/07-testng-lifecycle-and-template-method.md`: полный порядок выполнения хуков TestNG (`@BeforeSuite`/`@BeforeClass`/`@BeforeMethod`/`@Test`/`@AfterMethod`/`@AfterClass`), зачем `alwaysRun = true` на teardown-хуках, и как наследование тестовых классов реализует Template Method (базовый класс фиксирует шаги lifecycle, наследник добавляет только тело `@Test`).
 
 ## Definition of Done
 

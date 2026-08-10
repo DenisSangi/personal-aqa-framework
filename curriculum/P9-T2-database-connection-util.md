@@ -74,7 +74,7 @@ return results;          // ← вернётся ПУСТОЙ список
 
 ## Теория
 
-Новый материал — `theory/jdbc-basics.md`: что такое JDBC и драйвер, `DriverManager.getConnection`, анатомия JDBC URL, `Statement` vs `PreparedStatement` (и SQL-инъекции), `ResultSet` как курсор и почему `rs.next()` в `while`, `ResultSetMetaData` для получения имён колонок, нумерация с 1 (а не с 0), `try-with-resources` для трёх ресурсов сразу.
+Новый материал — `theory/13-jdbc-basics.md`: что такое JDBC и драйвер, `DriverManager.getConnection`, анатомия JDBC URL, `Statement` vs `PreparedStatement` (и SQL-инъекции), `ResultSet` как курсор и почему `rs.next()` в `while`, `ResultSetMetaData` для получения имён колонок, нумерация с 1 (а не с 0), `try-with-resources` для трёх ресурсов сразу.
 
 ## Definition of Done
 

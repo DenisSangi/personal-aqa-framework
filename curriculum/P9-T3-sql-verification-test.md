@@ -50,7 +50,7 @@
 
 ## Теория
 
-Отдельного нового конспекта нет — задача собирает вместе уже пройденное: JDBC (`theory/jdbc-basics.md`), TestNG lifecycle (`theory/testng-lifecycle-and-template-method.md`), фабрика тестовых данных (`theory/records-builder-and-factory.md`). Из нового по SQL — только `INSERT`/`UPDATE`/`DELETE` с `WHERE` и параметрами через `?`, что уже применялось в P9-T2.
+Отдельного нового конспекта нет — задача собирает вместе уже пройденное: JDBC (`theory/13-jdbc-basics.md`), TestNG lifecycle (`theory/07-testng-lifecycle-and-template-method.md`), фабрика тестовых данных (`theory/10-records-builder-and-factory.md`). Из нового по SQL — только `INSERT`/`UPDATE`/`DELETE` с `WHERE` и параметрами через `?`, что уже применялось в P9-T2.
 
 ## Definition of Done
 

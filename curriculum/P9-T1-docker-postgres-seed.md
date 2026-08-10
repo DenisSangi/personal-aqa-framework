@@ -45,7 +45,7 @@
 
 ## Теория
 
-Новый материал — `theory/docker-and-postgres-basics.md`: образ vs контейнер, ключевые команды и флаги (`run`/`ps`/`logs`/`exec`/`stop`/`rm`, `-d`/`-e`/`-p`/`-v`), проброс портов, env-переменные официального образа Postgres, механизм `/docker-entrypoint-initdb.d` и его главная ловушка (скрипты выполняются только при первой инициализации), минимум DDL (`CREATE TABLE`, типы, constraints) и `psql`.
+Новый материал — `theory/12-docker-and-postgres-basics.md`: образ vs контейнер, ключевые команды и флаги (`run`/`ps`/`logs`/`exec`/`stop`/`rm`, `-d`/`-e`/`-p`/`-v`), проброс портов, env-переменные официального образа Postgres, механизм `/docker-entrypoint-initdb.d` и его главная ловушка (скрипты выполняются только при первой инициализации), минимум DDL (`CREATE TABLE`, типы, constraints) и `psql`.
 
 ## Definition of Done
 

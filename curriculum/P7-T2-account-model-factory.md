@@ -55,7 +55,7 @@ firstname, lastname, company, address1, address2, country, zipcode, state, city,
 
 ## Теория
 
-Новый материал — `theory/records-builder-and-factory.md`: `record` (канонический конструктор, компактный конструктор, неизменяемость), Lombok `@Builder`/`@Builder.Default`/`toBuilder`, и Factory (`design-patterns.md` #8) на изолированном примере.
+Новый материал — `theory/10-records-builder-and-factory.md`: `record` (канонический конструктор, компактный конструктор, неизменяемость), Lombok `@Builder`/`@Builder.Default`/`toBuilder`, и Factory (`design-patterns.md` #8) на изолированном примере.
 
 ## Definition of Done
 

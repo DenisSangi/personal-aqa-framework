@@ -69,7 +69,7 @@
 
 ## Теория
 
-Новой отдельной теории не требуется — Page Object/Fluent Interface/навигация уже разобраны в [theory/page-object-and-navigation.md](../theory/page-object-and-navigation.md). Единственный новый практический приём (не тянет на отдельный файл) — `ElementsCollection.filterBy(Condition)`/`.findBy(Condition)` Selenide для поиска конкретного элемента среди нескольких похожих, если Вопрос 2 приведёт тебя к такому решению; `TableElement` (Фаза 3) уже показывает, как в проекте работают с `ElementsCollection`.
+Новой отдельной теории не требуется — Page Object/Fluent Interface/навигация уже разобраны в [theory/06-page-object-and-navigation.md](../theory/06-page-object-and-navigation.md). Единственный новый практический приём (не тянет на отдельный файл) — `ElementsCollection.filterBy(Condition)`/`.findBy(Condition)` Selenide для поиска конкретного элемента среди нескольких похожих, если Вопрос 2 приведёт тебя к такому решению; `TableElement` (Фаза 3) уже показывает, как в проекте работают с `ElementsCollection`.
 
 ## Definition of Done
 

@@ -22,7 +22,7 @@
 
 ## Теория
 
-- [theory/config-resolution.md](../theory/config-resolution.md) — `System.getenv()` vs `System.getProperty()`, почему такой порядок приоритета, `Properties` + classpath, параллель с `Optional`.
+- [theory/02-config-resolution.md](../theory/02-config-resolution.md) — `System.getenv()` vs `System.getProperty()`, почему такой порядок приоритета, `Properties` + classpath, параллель с `Optional`.
 - `java-selenide-pp/Framework explanation/design-patterns.md`, раздел **#6 Facade** — концепция уже разобрана там на примере `ClinCardConfig`.
 
 ## Definition of Done

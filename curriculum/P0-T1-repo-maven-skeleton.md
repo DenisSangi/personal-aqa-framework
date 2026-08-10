@@ -24,7 +24,7 @@
 
 ## Теория
 
-[theory/maven-basics.md](../theory/maven-basics.md) — GAV-координаты, dependency vs plugin, scope, build lifecycle, структура `src/main` vs `src/test`, где указывается версия Java.
+[theory/01-maven-basics.md](../theory/01-maven-basics.md) — GAV-координаты, dependency vs plugin, scope, build lifecycle, структура `src/main` vs `src/test`, где указывается версия Java.
 
 ## Definition of Done
 

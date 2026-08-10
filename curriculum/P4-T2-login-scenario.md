@@ -34,7 +34,7 @@
 
 ## Теория
 
-Новой теории не нужно — обе идеи уже разобраны: Fluent Interface и навигация `return new NextPage()` — в [theory/page-object-and-navigation.md](../theory/page-object-and-navigation.md) (P4-T1), Lazy Initialization — там же (Вопрос 2 выше — применение той же идеи в НОВОМ контексте, не повтор объяснения).
+Новой теории не нужно — обе идеи уже разобраны: Fluent Interface и навигация `return new NextPage()` — в [theory/06-page-object-and-navigation.md](../theory/06-page-object-and-navigation.md) (P4-T1), Lazy Initialization — там же (Вопрос 2 выше — применение той же идеи в НОВОМ контексте, не повтор объяснения).
 
 ## Definition of Done
 

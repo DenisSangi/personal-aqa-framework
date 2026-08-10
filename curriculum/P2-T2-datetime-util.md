@@ -27,7 +27,7 @@
 
 - `java.time`: `LocalDateTime` (неизменяемость, отличие от старого `Date`/`Calendar`), `DateTimeFormatter.ofPattern(...)`, буквы паттерна и ловушка `MM` (месяц) vs `mm` (минуты), роль `Locale`.
 - Потокобезопасность `DateTimeFormatter` vs `SimpleDateFormat` — параллель с `Random`/`ThreadLocalRandom` из P2-T1.
-- Файл: [theory/datetime-formatting.md](../theory/datetime-formatting.md)
+- Файл: [theory/04-datetime-formatting.md](../theory/04-datetime-formatting.md)
 
 ## Definition of Done
 

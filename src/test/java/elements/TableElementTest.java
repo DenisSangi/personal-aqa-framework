@@ -5,6 +5,8 @@ import config.FrameworkConfig;
 import core.BaseTest;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.WebDriverConditions.url;
 import static org.testng.Assert.assertEquals;
@@ -12,7 +14,7 @@ import static org.testng.Assert.assertTrue;
 
 public class TableElementTest extends BaseTest {
 
-    @Test
+    @Test()
     public void testGetRows() {
         Selenide.open(FrameworkConfig.APP_URL + "/login");
         InputElement emailInputField = new InputElement($("input[data-qa='login-email']"));
@@ -24,7 +26,7 @@ public class TableElementTest extends BaseTest {
         emailInputField.setValue(FrameworkConfig.APP_USER_EMAIL);
         passwordInputField.setValue(FrameworkConfig.APP_USER_PASSWORD);
         loginButton.click();
-        Selenide.webdriver().shouldHave(url(FrameworkConfig.APP_URL + "/"));
+        Selenide.webdriver().shouldHave(url(FrameworkConfig.APP_URL + "/"), Duration.ofSeconds(3));
         Selenide.open(FrameworkConfig.APP_URL + "/view_cart");
         assertEquals(cartTable.getRows().size(), 2);
         assertTrue(cartTable.getRows().get(0).text().contains(expectedText));

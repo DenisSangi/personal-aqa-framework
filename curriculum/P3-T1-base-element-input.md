@@ -30,7 +30,7 @@
 - Selenide-основы: `$`/`$x`, `SelenideElement`, `Condition.visible`, ленивый запуск браузера без явной конфигурации.
 - Self-bounded generics (CRTP) — почему обычный `return this` в базовом классе ломает цепочку вызовов у наследника, и как `T extends BaseElement<T>` это чинит. Изолированный пример в вакууме (`Animal`/`Dog`) — до реального кода.
 - Template Method — `waitAndGetElement()` в базовом классе как обязательная "прелюдия" перед специфичным действием наследника.
-- Файл: [theory/selenide-basics-and-generics.md](../theory/selenide-basics-and-generics.md)
+- Файл: [theory/05-selenide-basics-and-generics.md](../theory/05-selenide-basics-and-generics.md)
 
 ## Definition of Done
 

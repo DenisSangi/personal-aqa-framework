@@ -26,7 +26,7 @@ P10-T2 принята как Conditional Accepted — вся функциона�
 
 **Вопрос 1 — какой механизм стабилизации выбрать?**
 
-Три реалистичных варианта (подробности каждого — в [theory/click-interception-and-stabilization.md](../theory/click-interception-and-stabilization.md)):
+Три реалистичных варианта (подробности каждого — в [theory/14-click-interception-and-stabilization.md](../theory/14-click-interception-and-stabilization.md)):
 
 - **(a) `Configuration.clickViaJs = true`** — глобальный флаг Selenide, один раз, весь `.click()` в проекте начинает выполняться через JS в обход hit-test'а браузера. Дёшево, но маскирует и потенциальные РЕАЛЬНЫЕ проблемы перекрытия (не только рекламные).
 - **(b) JS-хук, убирающий сам рекламный оверлей** (`document.querySelectorAll(...).forEach(e => e.remove())`), вызываемый в общей точке (например, в `BaseElement.waitAndGetElement()` или в `@BeforeMethod`/после `Selenide.open(...)` в `BaseTest`). Точнее по цели (трогает только рекламу, не меняет семантику клика для собственных элементов сайта), но хрупко к точному селектору и моменту вызова (реклама может подгружаться асинхронно).
@@ -40,7 +40,7 @@ P10-T2 принята как Conditional Accepted — вся функциона�
 
 ## Теория
 
-[theory/click-interception-and-stabilization.md](../theory/click-interception-and-stabilization.md) — механика hit-test при нативном клике, `ElementClickInterceptedException`, JS-клик и его компромисс, `Configuration.clickViaJs`, разграничение "конфигурация фреймворка" vs "логика теста".
+[theory/14-click-interception-and-stabilization.md](../theory/14-click-interception-and-stabilization.md) — механика hit-test при нативном клике, `ElementClickInterceptedException`, JS-клик и его компромисс, `Configuration.clickViaJs`, разграничение "конфигурация фреймворка" vs "логика теста".
 
 ## Definition of Done
 
