@@ -1,0 +1,20 @@
+<suite name="regression" parallel="classes" thread-count="2">
+    <test name="Test">
+        <classes>
+            <class name="tests.ProductsMainFlowTest"/>
+            <class name="tests.LoginTest"/>
+            <class name="api.services.LoginApiServiceTest"/>
+            <class name="api.services.AccountApiServiceTest"/>
+            <class name="FrameworkConfigSmokeTest"/>
+            <class name="database.UserRecordLifecycleTest"/>
+            <class name="elements.ButtonElementTest"/>
+            <class name="elements.DropdownElementTest"/>
+            <class name="elements.InputElementTest"/>
+            <class name="elements.TableElementTest"/>
+            <class name="pages.BaseNavigationTest"/>
+            <class name="utils.DataBaseConnectionUtilTest"/>
+            <class name="utils.DateTimeUtilTest"/>
+            <class name="utils.RandomDataGeneratorTest"/>
+        </classes>
+    </test>
+</suite>

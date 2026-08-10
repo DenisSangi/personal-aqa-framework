@@ -15,8 +15,6 @@ import static org.testng.Assert.assertTrue;
 
 public class ProductsMainFlowTest extends BaseTest {
 
-    private ProductsPage productsPage;
-    private CartPage cartPage;
     private final String testingProductOne = "Winter Top",
             testingProductTwo = "Blue Top",
             testingProductThree = "Summer White Top",
@@ -31,7 +29,7 @@ public class ProductsMainFlowTest extends BaseTest {
     @Test
     public void searchProductTest() {
         HomePage homePage = new HomePage().verifyPageIsOpen();
-        productsPage = homePage.clickProductsLink();
+        ProductsPage productsPage = homePage.clickProductsLink();
         productsPage.verifyPageIsOpen()
                 .setValueInSearchInputField(testingProductOne)
                 .clickSubmitSearchButton();
@@ -42,8 +40,8 @@ public class ProductsMainFlowTest extends BaseTest {
     @Test
     public void addProductToCartTest() {
         HomePage homePage = new HomePage().verifyPageIsOpen();
-        productsPage = homePage.clickProductsLink().verifyPageIsOpen();
-        cartPage = productsPage.addProductToCart(testingProductOne)
+        ProductsPage productsPage = homePage.clickProductsLink().verifyPageIsOpen();
+        CartPage cartPage = productsPage.addProductToCart(testingProductOne)
                 .verifyModalIsDisplayed()
                 .clickModalContinueShoppingButton()
                 .addProductToCart(testingProductTwo)
@@ -71,8 +69,8 @@ public class ProductsMainFlowTest extends BaseTest {
     @Test
     public void proceedToCheckoutTest() {
         HomePage homePage = new HomePage().verifyPageIsOpen();
-        productsPage = homePage.clickProductsLink().verifyPageIsOpen();
-        cartPage = productsPage.addProductToCart(testingProductOne)
+        ProductsPage productsPage = homePage.clickProductsLink().verifyPageIsOpen();
+        productsPage.addProductToCart(testingProductOne)
                 .verifyModalIsDisplayed()
                 .clickModalContinueShoppingButton()
                 .addProductToCart(testingProductTwo)

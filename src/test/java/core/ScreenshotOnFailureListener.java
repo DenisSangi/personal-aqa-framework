@@ -10,4 +10,9 @@ public class ScreenshotOnFailureListener implements ITestListener {
     public void onTestFailure(ITestResult result) {
         Selenide.screenshot(result.getName());
     }
+
+    @Override
+    public void onTestStart(ITestResult result) {
+        System.out.println(Thread.currentThread().getName() + " -> " + result.getName());
+    }
 }
