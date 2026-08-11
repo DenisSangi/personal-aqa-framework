@@ -14,6 +14,7 @@ public class RetryOnFailureAnalyzer implements IRetryAnalyzer {
     public boolean retry(ITestResult result) {
         if (isTransient(result.getThrowable()) && count < MAX) {
             count++;
+            System.out.println("Test " + result.getName() + " retry attempt: " + count + " due to " + result.getThrowable());
             return true;
         }
         return false;

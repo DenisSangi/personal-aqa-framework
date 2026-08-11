@@ -39,6 +39,7 @@ public class FrameworkConfig {
     public static final String DB_NAME = getValue("DB_NAME");
     public static final String DB_USERNAME = getValue("DB_USERNAME");
     public static final String DB_PASSWORD = getValue("DB_PASSWORD");
+    public static final long DEFAULT_TIMEOUT = Long.parseLong(getValue("SELENIDE_TIMEOUT"));
 
     public static String getValue(String key) {
         String envValue = System.getenv(key);
