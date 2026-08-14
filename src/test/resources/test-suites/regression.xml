@@ -5,6 +5,7 @@
             <class name="tests.LoginTest"/>
             <class name="api.services.LoginApiServiceTest"/>
             <class name="api.services.AccountApiServiceTest"/>
+            <class name ="api.services.ProductApiServiceTest"/>
             <class name="FrameworkConfigSmokeTest"/>
             <class name="database.UserRecordLifecycleTest"/>
             <class name="elements.ButtonElementTest"/>

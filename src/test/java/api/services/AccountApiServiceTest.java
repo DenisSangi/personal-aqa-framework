@@ -2,6 +2,7 @@ package api.services;
 
 import api.models.AccountFactory;
 import api.models.AccountModel;
+import config.FrameworkConfig;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -23,8 +24,23 @@ public class AccountApiServiceTest {
     }
 
     @Test
-    public void testCreateAccount() {
+    public void createAccountTest() {
         accountApiService.createAccount(accountModelValid);
         assertTrue(loginApiService.verifyLogin(accountModelValid.getEmail(), accountModelValid.getPassword()));
+    }
+
+    @Test
+    public void getUserFirstnameByEmailTest() {
+        String actualName = accountApiService.getUserFirstnameByEmail(FrameworkConfig.APP_USER_EMAIL);
+        String expectedName = "Den";
+        assertEquals(actualName, expectedName);
+    }
+
+    @Test
+    public void updateAccountTest() {
+        String newFirstName = "NewName";
+        accountApiService.createAccount(accountModelValid);
+        accountApiService.updateAccount(accountModelValid.toBuilder().firstName(newFirstName).build());
+        assertEquals(accountApiService.getUserFirstnameByEmail(accountModelValid.getEmail()), newFirstName);
     }
 }

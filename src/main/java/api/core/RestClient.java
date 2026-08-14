@@ -20,11 +20,25 @@ public class RestClient {
                 .get(endpoint);
     }
 
+    public Response get(String endpoint, Map<String, String> queryParams) {
+        return given()
+                .baseUri(baseUrl)
+                .queryParams(queryParams)
+                .get(endpoint);
+    }
+
     public Response post(String endpoint, Map<String, String> formParams) {
         return given()
                 .baseUri(baseUrl)
                 .formParams(formParams)
                 .post(endpoint);
+    }
+
+    public Response put(String endpoint, Map<String, String> formParams) {
+        return given()
+                .baseUri(baseUrl)
+                .formParams(formParams)
+                .put(endpoint);
     }
 
     public Response delete(String endpoint, Map<String, String> formParams) {
