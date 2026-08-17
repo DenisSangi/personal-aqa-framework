@@ -3,6 +3,7 @@ package tests;
 import com.codeborne.selenide.Selenide;
 import config.FrameworkConfig;
 import core.BaseTest;
+import core.TestAccountFixture;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HomePage;
@@ -26,7 +27,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void successfulLoginTest() {
-        loginReusableActions.loginAsDefaultUser();
+        loginReusableActions.loginAsValidUser(TestAccountFixture.VALID_ACCOUNT_MODEL);
     }
 
     @Test
@@ -34,7 +35,7 @@ public class LoginTest extends BaseTest {
         loginPage = homePage.verifyPageIsOpen().clickSignupLoginLink();
         loginPage.verifyPageIsOpen()
                 .setLoginEmail(RandomDataGenerator.generateEmail())
-                .setPassword(FrameworkConfig.APP_USER_PASSWORD)
+                .setPassword(TestAccountFixture.VALID_ACCOUNT_MODEL.getPassword())
                 .clickLoginButtonWithFail()
                 .verifyFailedLoginErrorMessage(failedLoginErrorMessage);
     }
@@ -43,7 +44,7 @@ public class LoginTest extends BaseTest {
     public void incorrectPasswordLoginTest() {
         loginPage = homePage.verifyPageIsOpen().clickSignupLoginLink();
         loginPage.verifyPageIsOpen()
-                .setLoginEmail(FrameworkConfig.APP_USER_EMAIL)
+                .setLoginEmail(TestAccountFixture.VALID_ACCOUNT_MODEL.getEmail())
                 .setPassword(RandomDataGenerator.generateAlphanumeric(10))
                 .clickLoginButtonWithFail()
                 .verifyFailedLoginErrorMessage(failedLoginErrorMessage);
@@ -53,7 +54,7 @@ public class LoginTest extends BaseTest {
     public void incorrectSignupWithExistedEmail() {
         loginPage = homePage.verifyPageIsOpen().clickSignupLoginLink();
         loginPage.verifyPageIsOpen()
-                .setSignupEmail(FrameworkConfig.APP_USER_EMAIL)
+                .setSignupEmail(TestAccountFixture.VALID_ACCOUNT_MODEL.getEmail())
                 .setSignupName(RandomDataGenerator.generateAlphanumeric(10))
                 .clickSignupButtonWithFail()
                 .verifyFailedSignupErrorMessage(failedSignupErrorMessage);

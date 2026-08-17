@@ -3,6 +3,7 @@ package api.services;
 import api.models.AccountFactory;
 import api.models.AccountModel;
 import config.FrameworkConfig;
+import core.TestAccountFixture;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -31,8 +32,8 @@ public class AccountApiServiceTest {
 
     @Test
     public void getUserFirstnameByEmailTest() {
-        String actualName = accountApiService.getUserFirstnameByEmail(FrameworkConfig.APP_USER_EMAIL);
-        String expectedName = "Den";
+        String actualName = accountApiService.getUserFirstnameByEmail(TestAccountFixture.VALID_ACCOUNT_MODEL.getEmail());
+        String expectedName = TestAccountFixture.VALID_ACCOUNT_MODEL.getFirstName();
         assertEquals(actualName, expectedName);
     }
 
