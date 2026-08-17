@@ -1,19 +1,20 @@
 package reusableactions;
 
+import api.models.AccountModel;
 import com.codeborne.selenide.Selenide;
 import config.FrameworkConfig;
 import pages.HomePage;
 
 public class LoginReusableActions {
 
-    public HomePage loginAsDefaultUser() {
+    public HomePage loginAsValidUser(AccountModel accountModel) {
         Selenide.open(FrameworkConfig.APP_URL);
         return new HomePage().verifyPageIsOpen()
                 .clickSignupLoginLink()
                 .verifyPageIsOpen()
-                .setLoginEmail(FrameworkConfig.APP_USER_EMAIL)
-                .setPassword(FrameworkConfig.APP_USER_PASSWORD)
+                .setLoginEmail(accountModel.getEmail())
+                .setPassword(accountModel.getPassword())
                 .clickLoginButton()
-                .verifyLoggedUsername(FrameworkConfig.APP_USERNAME);
+                .verifyLoggedUsername(accountModel.getName());
     }
 }

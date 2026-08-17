@@ -31,9 +31,6 @@ public class FrameworkConfig {
     }
 
     public static final String APP_URL = getValue("BASE_URL");
-    public static final String APP_USERNAME = getValue("USERNAME");
-    public static final String APP_USER_EMAIL = getValue("USER_EMAIL");
-    public static final String APP_USER_PASSWORD = getValue("USER_PASSWORD");
     public static final String DB_HOST = getValue("DB_HOST");
     public static final String DB_PORT = getValue("DB_PORT");
     public static final String DB_NAME = getValue("DB_NAME");
