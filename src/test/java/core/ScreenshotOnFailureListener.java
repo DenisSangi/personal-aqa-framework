@@ -1,9 +1,11 @@
 package core;
 
 import com.codeborne.selenide.Selenide;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+@Slf4j
 public class ScreenshotOnFailureListener implements ITestListener {
 
     @Override
@@ -13,6 +15,6 @@ public class ScreenshotOnFailureListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        System.out.println(Thread.currentThread().getName() + " -> " + result.getName());
+        log.info("Test started: {}", result.getName());
     }
 }

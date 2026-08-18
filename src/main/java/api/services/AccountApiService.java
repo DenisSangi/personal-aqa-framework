@@ -3,10 +3,12 @@ package api.services;
 import api.core.BaseApiService;
 import api.models.AccountModel;
 import io.restassured.response.Response;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class AccountApiService extends BaseApiService {
 
     private static final String CREATE_ACCOUNT_ENDPOINT = "/api/createAccount",
@@ -17,21 +19,21 @@ public class AccountApiService extends BaseApiService {
     public void createAccount(AccountModel accountModel) {
         Response response = restClient.post(CREATE_ACCOUNT_ENDPOINT, buildFormParams(accountModel));
 
-        System.out.println("Create Account: " + response.getBody().asString());
-
         if (response.jsonPath().getInt("responseCode") != 201) {
             throw new RuntimeException("Account wasn't created due to " + response.jsonPath().getInt("responseCode") + ": " + response.getBody().asString());
         }
+
+        log.debug("Create Account: {}", response.getBody().asString());
     }
 
     public void updateAccount(AccountModel accountModel) {
         Response response = restClient.put(UPDATE_ACCOUNT_ENDPOINT, buildFormParams(accountModel));
 
-        System.out.println("Update Account: " + response.getBody().asString());
-
         if (response.jsonPath().getInt("responseCode") != 200) {
             throw new RuntimeException("Account wasn't updated due to " + response.jsonPath().getInt("responseCode") + ": " + response.getBody().asString());
         }
+
+        log.debug("Update Account: {}", response.getBody().asString());
     }
 
     public void deleteAccount(String email, String password) {
@@ -42,11 +44,11 @@ public class AccountApiService extends BaseApiService {
 
         Response response = restClient.delete(DELETE_ACCOUNT_ENDPOINT, formParams);
 
-        System.out.println("Delete account: " + response.getBody().asString());
-
         if (response.jsonPath().getInt("responseCode") != 200) {
             throw new RuntimeException("Account wasn't deleted due to " + response.jsonPath().getInt("responseCode") + ": " + response.getBody().asString());
         }
+
+        log.debug("Delete account: {}", response.getBody().asString());
     }
 
     public String getUserFirstnameByEmail(String email) {
@@ -56,11 +58,11 @@ public class AccountApiService extends BaseApiService {
 
         Response response = restClient.get(GET_ACCOUNT_BY_EMAIL_ENDPOINT, queryParams);
 
-        System.out.println("Get account's details" + response.getBody().asString());
-
         if (response.jsonPath().getInt("responseCode") != 200) {
             throw new RuntimeException("Unable to get account due to " + response.jsonPath().getInt("responseCode") + ": " + response.getBody().asString());
         }
+
+        log.debug("Get account's details: {}", response.getBody().asString());
 
         return response.jsonPath().getString("user.first_name");
     }

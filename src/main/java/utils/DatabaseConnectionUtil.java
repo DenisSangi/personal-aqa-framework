@@ -43,8 +43,7 @@ public class DatabaseConnectionUtil {
                 results.add(row);
             }
         } catch (SQLException e) {
-            System.out.println("Failed to execute execute query " + e.getMessage());
-            throw e;
+            throw new RuntimeException("Failed to execute query", e);
         }
 
         return results;
@@ -66,8 +65,7 @@ public class DatabaseConnectionUtil {
             }
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Failed to execute update query " + e.getMessage());
-            throw e;
+            throw new RuntimeException("Failed to execute update query", e);
         }
     }
 }

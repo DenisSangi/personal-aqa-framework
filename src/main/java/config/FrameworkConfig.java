@@ -18,15 +18,13 @@ public class FrameworkConfig {
         try (InputStream in = FrameworkConfig.class.getResourceAsStream(CONFIG_FILE)) {
             PROPERTIES.load(in);
         } catch (IOException e) {
-            System.out.println("framework.properties file is missing");
-            throw new RuntimeException(e);
+            throw new RuntimeException("framework.properties file is missing", e);
         }
 
         try (InputStream in = FrameworkConfig.class.getResourceAsStream(DB_CONFIG_FILE)) {
             DB_PROPERTIES.load(in);
         } catch (IOException e) {
-            System.out.println("dbconnect.properties file is missing");
-            throw new RuntimeException(e);
+            throw new RuntimeException("dbconnect.properties file is missing", e);
         }
     }
 
