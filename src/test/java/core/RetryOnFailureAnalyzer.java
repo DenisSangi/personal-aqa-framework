@@ -1,10 +1,12 @@
 package core;
 
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
+@Slf4j
 public class RetryOnFailureAnalyzer implements IRetryAnalyzer {
 
     private int count = 0;
@@ -14,7 +16,7 @@ public class RetryOnFailureAnalyzer implements IRetryAnalyzer {
     public boolean retry(ITestResult result) {
         if (isTransient(result.getThrowable()) && count < MAX) {
             count++;
-            System.out.println("Test " + result.getName() + " retry attempt: " + count + " due to " + result.getThrowable());
+            log.warn("Test {} retry attempt {} :", result.getName(), count, result.getThrowable());
             return true;
         }
         return false;

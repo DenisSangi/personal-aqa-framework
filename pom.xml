@@ -21,6 +21,7 @@
         <surefire.suiteXmlFile>src/test/resources/test-suites/regression.xml</surefire.suiteXmlFile>
         <surefire.threadNumber>4</surefire.threadNumber>
         <maven-enforcer-plugin.version>3.6.3</maven-enforcer-plugin.version>
+        <logback.version>1.6.2</logback.version>
     </properties>
 
 
@@ -62,6 +63,12 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
