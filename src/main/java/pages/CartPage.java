@@ -1,8 +1,10 @@
 package pages;
 
+import com.codeborne.selenide.CollectionCondition;
 import elements.ButtonElement;
 import elements.TableElement;
 import elements.TextElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -31,6 +33,7 @@ public class CartPage {
         return this;
     }
 
+    @Step("Click Proceed to checkout button")
     public CartPage clickProceedToCheckoutButton() {
         proceedToCheckoutButton.click();
         return this;
@@ -51,8 +54,9 @@ public class CartPage {
         return this;
     }
 
-    public int getCartTableSize() {
-        return cartTable.getTableSize();
+    public CartPage verifyCartTableSize(int expectedSize) {
+        cartTable.getDataRows().shouldHave(CollectionCondition.size(expectedSize));
+        return this;
     }
 }
 

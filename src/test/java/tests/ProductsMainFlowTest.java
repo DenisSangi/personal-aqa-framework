@@ -11,7 +11,6 @@ import pages.HomePage;
 import pages.ProductsPage;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class ProductsMainFlowTest extends BaseTest {
 
@@ -32,9 +31,9 @@ public class ProductsMainFlowTest extends BaseTest {
         ProductsPage productsPage = homePage.clickProductsLink();
         productsPage.verifyPageIsOpen()
                 .setValueInSearchInputField(testingProductOne)
-                .clickSubmitSearchButton();
-        assertEquals(productsPage.getSearchResultSize(), 1);
-        assertTrue(productsPage.isSearchResultsContainsProductName(testingProductOne));
+                .clickSubmitSearchButton()
+                .verifySearchResultsSize(1)
+                .verifySearchResultsContainsProduct(testingProductOne);
     }
 
     @Test
@@ -53,8 +52,7 @@ public class ProductsMainFlowTest extends BaseTest {
                 .addProductToCart(testingProductThree)
                 .verifyModalIsDisplayed()
                 .clickModalViewCartButton();
-        cartPage.verifyPageIsOpen();
-        assertEquals(cartPage.getCartTableSize(), 3);
+        cartPage.verifyPageIsOpen().verifyCartTableSize(3);
         assertEquals(cartPage.getCellValueInCartTable(0, TableHeaders.CT_DESCRIPTION.getHeaderName()), testingProductOne + productCategory);
         assertEquals(cartPage.getCellValueInCartTable(0, TableHeaders.CT_PRICE.getHeaderName()), "Rs. 600");
         assertEquals(cartPage.getCellValueInCartTable(0, TableHeaders.CT_QUANTITY.getHeaderName()), "1");

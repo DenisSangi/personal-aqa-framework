@@ -1,9 +1,12 @@
 package pages;
 
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.Condition;
 import elements.ButtonElement;
 import elements.CardListElement;
 import elements.InputElement;
 import elements.TextElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -26,16 +29,19 @@ public class ProductsPage {
         return this;
     }
 
+    @Step("Enter value in to the Search input {value}")
     public ProductsPage setValueInSearchInputField(String value) {
         searchInputField.setValue(value);
         return this;
     }
 
+    @Step("Click Submit search button")
     public ProductsPage clickSubmitSearchButton() {
         submitSearchButton.click();
         return this;
     }
 
+    @Step("Add product to cart: {cardName}")
     public ProductsPage addProductToCart(String cardName) {
         new ButtonElement($x(PRODUCT_CARD.formatted(cardName))).shouldBe(clickable).click();
         return this;
@@ -46,19 +52,23 @@ public class ProductsPage {
         return this;
     }
 
+    @Step("Click Modal view Cart button")
     public CartPage clickModalViewCartButton() {
         modalViewCartButton.click();
         return new CartPage();
     }
 
-    public int getSearchResultSize() {
-        return searchResults.getRows().size();
+    public ProductsPage verifySearchResultsSize(int expectedSize) {
+        searchResults.getRows().shouldBe(CollectionCondition.size(expectedSize));
+        return this;
     }
 
-    public boolean isSearchResultsContainsProductName(String productName) {
-        return searchResults.getRows().texts().stream().anyMatch(t -> t.contains(productName));
+    public ProductsPage verifySearchResultsContainsProduct(String productName) {
+        searchResults.getRows().findBy(Condition.text(productName)).shouldBe(visible);
+        return this;
     }
 
+    @Step("Click Continue shopping button")
     public ProductsPage clickModalContinueShoppingButton() {
         modalContinueShoppingButton.click();
         return this;
