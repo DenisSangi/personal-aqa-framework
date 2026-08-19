@@ -16,6 +16,11 @@ public class TableElement extends BaseElement<TableElement> {
         return element.$$x(".//tr");
     }
 
+    public ElementsCollection getDataRows() {
+        waitAndGetElement();
+        return element.$$x(".//tbody/tr");
+    }
+
     public boolean containsText(String text) {
         waitAndGetElement();
         return element.getText().contains(text);

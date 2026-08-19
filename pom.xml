@@ -1,96 +1,237 @@
+<!--
+    pom.xml — Project Object Model, единственный файл описания проекта для Maven.
+    Отвечает на три вопроса: КАК называется проект, ЧТО ему нужно из внешнего мира (dependencies)
+    и ЧТО делать во время сборки (build/plugins).
+
+    Ключевое различие, с которого начинается понимание файла:
+      dependency — БИБЛИОТЕКА, попадает в classpath, её классы вызывает наш код;
+      plugin     — ИНСТРУМЕНТ СБОРКИ, выполняет действие в ходе сборки, в classpath не попадает.
+    Объявить плагин ≠ запустить плагин: у большинства нужен <executions> или явный вызов.
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+    <!-- Версия схемы самого pom.xml. Для Maven 2/3/4 всегда 4.0.0 — к версии проекта отношения не имеет. -->
     <modelVersion>4.0.0</modelVersion>
 
+    <!--
+        GAV-координаты — адрес проекта в мире Maven. По такой же тройке ищутся и все зависимости ниже.
+        groupId    — кто издатель (обратный домен; здесь — GitHub-аккаунт).
+        artifactId — имя артефакта.
+        version    — суффикс SNAPSHOT означает «в разработке»: Maven имеет право перекачивать такую
+                     версию заново, тогда как релизная версия считается неизменяемой навсегда.
+    -->
     <groupId>io.github.DenisSangi</groupId>
     <artifactId>personal-aqa-framework</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!--
+        Переменные сборки. Подставляются как ${имя} в любом месте файла.
+        Смысл: версия каждой библиотеки объявлена ровно один раз — обновление правится в одном месте,
+        и невозможно случайно развести две версии одного артефакта по разным блокам.
+        Свойства с префиксом surefire.* дополнительно переопределяются снаружи: mvn test -Dsurefire.threadNumber=8
+    -->
     <properties>
+        <!-- Уровень языка (что разрешено писать) и версия байткода (для какой JVM компилировать).
+             ВАЖНО: они НЕ выбирают, какой JDK запустится — выбор JDK живёт в JAVA_HOME/PATH/настройках IDE.
+             Именно поэтому ниже стоит enforcer: source/target 17 не защищают от сборки на JDK 26. -->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+
         <selenide-testng.version>7.2.3</selenide-testng.version>
         <testng.version>7.10.1</testng.version>
         <allure-testng.version>2.35.3</allure-testng.version>
+        <allure-selenide.version>2.35.3</allure-selenide.version>
+        <!-- Версия ПЛАГИНА Allure, не библиотеки. Намеренно 2.x: линия 3.x тянет генератор на Node.js
+             и требует `npm install -g allure` на каждом агенте Jenkins. -->
+        <allure-maven.version>2.18.0</allure-maven.version>
         <lombok.version>1.18.46</lombok.version>
         <jsoup.version>1.22.2</jsoup.version>
         <rest-assured.version>6.0.1</rest-assured.version>
         <postgresql.version>42.7.13</postgresql.version>
         <maven-surefire-plugin.version>3.5.6</maven-surefire-plugin.version>
+
+        <!-- Какой TestNG-сьют запускать. Вынесено в property, чтобы в CI гонять другой набор
+             без правки pom: mvn test -Dsurefire.suiteXmlFile=src/test/resources/test-suites/smoke.xml -->
         <surefire.suiteXmlFile>src/test/resources/test-suites/regression.xml</surefire.suiteXmlFile>
+        <!-- Число потоков параллельного прогона. Свойство ОКРУЖЕНИЯ, а не тестов: сколько потоков
+             потянет машина — знает тот, кто запускает, поэтому задаётся снаружи.
+             Сам факт параллельности (parallel="classes") живёт в regression.xml — это свойство тестов. -->
         <surefire.threadNumber>4</surefire.threadNumber>
+
         <maven-enforcer-plugin.version>3.6.3</maven-enforcer-plugin.version>
         <logback.version>1.6.2</logback.version>
+        <aspectjweaver.version>1.9.22</aspectjweaver.version>
+        <maven-dependency-plugin.version>3.7.0</maven-dependency-plugin.version>
     </properties>
 
 
+    <!--
+        Библиотеки, попадающие в classpath. Maven скачивает их в ~/.m2 и тянет вместе с ними
+        их собственные зависимости (транзитивно) — так, например, Selenium приезжает через Selenide,
+        а slf4j-api через Selenide же.
+
+        scope — где библиотека видна:
+          compile (по умолчанию) — везде: и src/main, и src/test, и потребителю фреймворка как библиотеки;
+          test                   — только при компиляции и прогоне тестов, наружу не уезжает;
+          provided               — нужна при компиляции, но в рантайме её даёт кто-то другой.
+    -->
     <dependencies>
+        <!-- Selenide — обёртка над Selenium: умные ожидания в каждом действии, ленивые элементы,
+             свой ThreadLocal-драйвер. Артефакт selenide-testng дополнительно приносит интеграцию с TestNG.
+             Selenium (4.19.1) приезжает сюда транзитивно — отдельной зависимостью не объявлен.
+             Используется слоем elements/ (BaseElement и наследники), выше — только через них. -->
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide-testng</artifactId>
             <version>${selenide-testng.version}</version>
         </dependency>
+
+        <!-- TestNG — тест-раннер: аннотации жизненного цикла, @DataProvider, слушатели, suite-XML.
+             scope=test, потому что тесты писать будет потребитель фреймворка, а не сам фреймворк. -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Allure — БИБЛИОТЕКА времени прогона (не генератор отчёта!). Подписывается на события TestNG
+             и после каждого теста пишет <uuid>-result.json в allure-results.
+             Транзитивно приносит allure-java-commons, где лежат аннотации @Step/@Attachment.
+             HTML из этих JSON строит уже ПЛАГИН allure-maven — см. блок build ниже. -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure-testng.version}</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- Интеграция Allure с Selenide. Подписывается на шину событий Selenide (LogEventListener)
+             и при падении Selenide-действия прикладывает к отчёту скриншот и HTML страницы.
+             Регистрируется в BaseTest: SelenideLogger.addListener("AllureSelenide", new AllureSelenide()...).
+             В проекте используется РАДИ ВЛОЖЕНИЙ — генерация технических шагов выключена
+             через includeSelenideSteps(false), они дублируют бизнес-шаги от @Step. -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-selenide</artifactId>
+            <version>${allure-selenide.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Lombok — генерация boilerplate на этапе компиляции (annotation processor).
+             В проекте: @Builder на AccountModel, @Slf4j для логгеров.
+             Чувствителен к версии JDK и при несовместимой отказывает ТИХО — отсюда enforcer ниже. -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
+
+        <!-- Jsoup — парсер HTML. Заведён по образцу референса (там им вытаскивают id из ответов
+             Django-админки). В текущем коде фреймворка пока не используется. -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>${jsoup.version}</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- REST Assured — HTTP-клиент для API-слоя. Прячется за адаптером RestClient:
+             весь остальной код о REST Assured не знает, и смена библиотеки затронет один класс. -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>${rest-assured.version}</version>
         </dependency>
+
+        <!-- JDBC-драйвер PostgreSQL. Реализация интерфейсов java.sql.* для конкретной СУБД —
+             сам JDBC это только набор интерфейсов в JDK. Используется DatabaseConnectionUtil
+             для локальной базы в Docker (docker-compose.yml). -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
         </dependency>
+
+        <!-- Провайдер (реализация) логирования под фасад SLF4J. Сам slf4j-api приезжает транзитивно
+             через Selenide; без провайдера любой log.info() молча уходит в NOP-заглушку.
+             scope=test принципиален: фреймворк как библиотека не должен навязывать потребителю
+             свою реализацию логирования — два провайдера в classpath дают предупреждение SLF4J
+             и произвольный выбор одного. Настройки — src/test/resources/logback.xml. -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- AspectJ weaver. Объявлен здесь НЕ ради вызова из кода — его классы никто не импортирует.
+             Объявление нужно, чтобы Maven скачал jar и знал путь к нему; дальше путь подставляется
+             в -javaagent (см. maven-dependency-plugin и argLine в surefire).
+             Зачем: аннотация @Step — это только пометка в байткоде. Код, создающий шаг отчёта,
+             лежит в allure-java-commons (io/qameta/allure/aspects/StepsAspects.class), и кто-то
+             должен вплести его вокруг размеченных методов. Этим и занимается weaver при загрузке классов.
+             Без него @Step компилируется, тест проходит, шага в отчёте нет и ошибки тоже нет. -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectjweaver.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
+    <!--
+        Что происходит во время сборки. Плагины привязаны к фазам жизненного цикла
+        (validate → compile → test → package → install → deploy): команда `mvn test` выполняет
+        все фазы ДО test включительно, поэтому плагин, привязанный к package, при `mvn test` не отработает.
+    -->
     <build>
         <plugins>
+            <!-- Surefire — плагин, который собственно запускает тесты в фазе test.
+                 Форкает отдельную JVM и передаёт ей параметры из <configuration>. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
+                    <!-- Какой TestNG-сьют исполнять. Без этого Surefire сам искал бы классы по маске
+                         имени; здесь состав прогона задан явно в XML.
+                         Перебивается точечно: mvn test -Dtest=ProductsMainFlowTest — тогда suite-XML игнорируется. -->
                     <suiteXmlFiles>
                         <suiteXmlFile>${surefire.suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
+
+                    <!-- Число потоков для parallel-режима, объявленного в самом suite-XML.
+                         Внимание: имя тега camelCase — <thread-count> Maven молча проигнорирует
+                         с предупреждением "Parameter is unknown", и TestNG применит свой дефолт. -->
                     <threadCount>${surefire.threadNumber}</threadCount>
+
+                    <!-- Аргументы форкнутой JVM. Здесь подключается AspectJ weaver как javaagent —
+                         надстройка, стартующая раньше прикладных классов и переписывающая их байткод
+                         на лету. Именно это оживляет @Step.
+                         ${org.aspectj:aspectjweaver:jar} — не обычное property из <properties>,
+                         а переменная, которую создаёт maven-dependency-plugin (см. ниже): она содержит
+                         абсолютный путь к jar в локальном репозитории ЭТОЙ машины. Хардкодить путь нельзя —
+                         у коллеги и у CI-агента он другой.
+                         Комментарий-подавление ниже нужен только IDE: IntelliJ не знает про эту переменную. -->
+                    <!--suppress UnresolvedMavenProperty -->
+                    <argLine>-javaagent:${org.aspectj:aspectjweaver:jar}</argLine>
                 </configuration>
             </plugin>
+
+            <!-- Enforcer — проверка условий сборки до того, как что-либо соберётся.
+                 Заведён после реального инцидента: на JDK 26 Lombok молча не отрабатывает,
+                 и сборка падает десятком «cannot find symbol» вместо внятной причины.
+                 maven.compiler.source/target от этого не защищают — они про уровень языка, а не про выбор JDK. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>${maven-enforcer-plugin.version}</version>
+                <!-- Без <executions> плагин объявлен, но не запускается ни в какой фазе. -->
                 <executions>
                     <execution>
+                        <!-- id — имя запуска, видно в логе сборки. Должно описывать, что реально делается. -->
                         <id>enforce-java-version</id>
                         <goals>
                             <goal>
@@ -99,6 +240,8 @@
                         </goals>
                         <configuration>
                             <rules>
+                                <!-- Нотация диапазонов Maven: [ — включительно, ) — исключительно.
+                                     [17,26) = «17 и выше, но строго ниже 26». -->
                                 <requireJavaVersion>
                                     <version>
                                         [17,26)
@@ -106,6 +249,46 @@
                                 </requireJavaVersion>
                             </rules>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- ГЕНЕРАТОР Allure-отчёта — вторая, независимая стадия отчётности.
+                 Библиотека allure-testng (выше) только ПИШЕТ результаты в target/allure-results;
+                 этот плагин их ЧИТАЕТ и строит HTML в target/site/allure-maven-plugin/.
+                 Запускается вручную, не в фазе: mvn allure:report — собрать, mvn allure:serve — собрать
+                 и поднять локальный сервер с браузером.
+                 Куда писать результаты, задаёт не он, а библиотека — через src/test/resources/allure.properties.
+                 Плагин вместо CLI выбран сознательно: уезжает в git вместе с проектом, на агенте CI
+                 ничего доустанавливать не нужно.
+                 <executions> здесь нет намеренно — отчёт не нужен на каждой сборке. -->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure-maven.version}</version>
+            </plugin>
+
+            <!-- Вспомогательный плагин: работает с зависимостями как с файлами
+                 (сюда же относится знакомый mvn dependency:tree).
+                 Goal `properties` проходит по всем зависимостям проекта и заводит для каждой переменную
+                 вида ${groupId:artifactId:jar} со значением — реальным путём к jar на текущей машине:
+
+                     ${org.aspectj:aspectjweaver:jar}
+                        → /Users/.../.m2/repository/org/aspectj/aspectjweaver/1.9.22/aspectjweaver-1.9.22.jar
+
+                 Ради этой переменной он и подключён — её подставляет argLine у Surefire.
+                 <phase> не указан намеренно: у goal есть собственная привязка к ранней фазе,
+                 и путь готов раньше, чем стартуют тесты. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven-dependency-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>set-properties</id>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

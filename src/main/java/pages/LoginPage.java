@@ -3,6 +3,7 @@ package pages;
 import elements.ButtonElement;
 import elements.InputElement;
 import elements.TextElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -24,36 +25,43 @@ public class LoginPage {
         return this;
     }
 
+    @Step("Enter Login email {email}")
     public LoginPage setLoginEmail(String email) {
         loginEmailInput.setValue(email);
         return this;
     }
 
+    @Step("Enter Signup email {email}")
     public LoginPage setSignupEmail(String email) {
         signupEmailInput.setValue(email);
         return this;
     }
 
+    @Step("Enter Signup name {name}")
     public LoginPage setSignupName(String name) {
         signupNameInput.setValue(name);
         return this;
     }
 
+    @Step("Enter password")
     public LoginPage setPassword(String password) {
         passwordInput.setValue(password);
         return this;
     }
 
+    @Step("Click Login button")
     public HomePage clickLoginButton() {
         loginButton.click();
         return new HomePage();
     }
 
+    @Step("Click Login button with fail")
     public LoginPage clickLoginButtonWithFail() {
         loginButton.click();
         return this;
     }
 
+    @Step("Click Signup button with fail")
     public LoginPage clickSignupButtonWithFail() {
         signupButton.click();
         return this;

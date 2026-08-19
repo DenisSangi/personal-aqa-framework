@@ -1,6 +1,7 @@
 package pages;
 
 import elements.ButtonElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -24,11 +25,13 @@ public class HomePage {
         return this;
     }
 
+    @Step("Click Signup/Login link")
     public LoginPage clickSignupLoginLink() {
         signupLoginLink.click();
         return new LoginPage();
     }
 
+    @Step("Go to Products page")
     public ProductsPage clickProductsLink() {
         productsLink.click();
         return new ProductsPage();
