@@ -84,3 +84,20 @@ public void afterMethod(ITestResult result) {
 
 - `@AfterMethod` — часть lifecycle конкретного класса (или унаследована от родителя, как наш `BaseTest`). Работает только там, где есть наследование от этого родителя.
 - `@Listeners` — можно повесить не только на класс, но и на весь suite целиком через `testng.xml`, независимо от того, как устроена иерархия наследования тестовых классов. Слушатель в этом смысле более развязан (decoupled) с конкретной иерархией — TestNG уведомляет его о событии как о факте прогона, а не как о шаге lifecycle конкретного класса.
+
+## 5. `ITestListener` — не единственный «наблюдатель» в TestNG (замер P11-T2, 2026-08-20)
+
+`ITestListener.onTestFailure(...)` узнаёт о падении ПОСЛЕ того, как TestNG уже полностью обработал результат метода — включая уведомление всех остальных `ITestListener`, зарегистрированных раньше. Порядок регистрации не то же самое, что порядок `@Listeners` в коде: слушатели, подключённые через `META-INF/services/org.testng.ITestNGListener` (так подключён сторонний `AllureTestNg` — из своего же jar'а, и так же в этом проекте подключены `RetryAnnotationTransformer`/`TestAccountFixture`), встают в список раньше слушателей, объявленных через `@Listeners` на классе.
+
+Практическое следствие, подтверждённое изолированным экспериментом: если `AllureTestNg` успевает закрыть Allure-результат теста ДО того, как отработает наш `ITestListener.onTestFailure`, любой `Allure.addAttachment(...)`, вызванный оттуда, не попадёт в отчёт — файл на диск запишется, а ссылки на него в результате не будет (см. [P11-T2](../curriculum/P11-T2-allure-hardening.md)).
+
+Другой интерфейс с похожей ролью — `IInvokedMethodListener`:
+
+```java
+public interface IInvokedMethodListener {
+    default void beforeInvocation(IInvokedMethod method, ITestResult testResult) {}
+    default void afterInvocation(IInvokedMethod method, ITestResult testResult) {}
+}
+```
+
+Он не «слушает событие после факта», а **оборачивает сам вызов** тестового (или configuration-) метода — `afterInvocation` срабатывает сразу после того, как метод завершился (успешно или с исключением), но раньше, чем TestNG успевает пройтись по списку `ITestListener`. На практике это означает: то, что не получается надёжно сделать из `onTestFailure`, стоит проверить через `afterInvocation` — порядок относительно `AllureTestNg` там другой.

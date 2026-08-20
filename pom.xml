@@ -42,6 +42,7 @@
         <testng.version>7.10.1</testng.version>
         <allure-testng.version>2.35.3</allure-testng.version>
         <allure-selenide.version>2.35.3</allure-selenide.version>
+        <allure-rest-assured.version>2.35.3</allure-rest-assured.version>
         <!-- Версия ПЛАГИНА Allure, не библиотеки. Намеренно 2.x: линия 3.x тянет генератор на Node.js
              и требует `npm install -g allure` на каждом агенте Jenkins. -->
         <allure-maven.version>2.18.0</allure-maven.version>
@@ -117,6 +118,13 @@
             <artifactId>allure-selenide</artifactId>
             <version>${allure-selenide.version}</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-rest-assured</artifactId>
+            <version>${allure-rest-assured.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- Lombok — генерация boilerplate на этапе компиляции (annotation processor).
