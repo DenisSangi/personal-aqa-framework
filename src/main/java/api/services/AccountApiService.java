@@ -1,7 +1,10 @@
 package api.services;
 
 import api.core.BaseApiService;
+import api.models.AccountCommonResponseModel;
 import api.models.AccountModel;
+import api.models.AccountResponseModel;
+import api.models.ResponseAccountContainerModel;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,22 +21,24 @@ public class AccountApiService extends BaseApiService {
 
     public void createAccount(AccountModel accountModel) {
         Response response = restClient.post(CREATE_ACCOUNT_ENDPOINT, buildFormParams(accountModel));
+        AccountCommonResponseModel accountCommonResponseModel = response.getBody().as(AccountCommonResponseModel.class);
 
-        if (response.jsonPath().getInt("responseCode") != 201) {
-            throw new RuntimeException("Account wasn't created due to " + response.jsonPath().getInt("responseCode") + ": " + response.getBody().asString());
+        if (accountCommonResponseModel.getResponseCode() != 201) {
+            throw new RuntimeException("Account wasn't created due to " + accountCommonResponseModel.getResponseCode() + ": " + accountCommonResponseModel.getMessage());
         }
 
-        log.debug("Create Account: {}", response.getBody().asString());
+        log.debug("Create Account: {}", accountCommonResponseModel.getMessage());
     }
 
     public void updateAccount(AccountModel accountModel) {
         Response response = restClient.put(UPDATE_ACCOUNT_ENDPOINT, buildFormParams(accountModel));
+        AccountCommonResponseModel accountCommonResponseModel = response.getBody().as(AccountCommonResponseModel.class);
 
-        if (response.jsonPath().getInt("responseCode") != 200) {
-            throw new RuntimeException("Account wasn't updated due to " + response.jsonPath().getInt("responseCode") + ": " + response.getBody().asString());
+        if (accountCommonResponseModel.getResponseCode() != 200) {
+            throw new RuntimeException("Account wasn't updated due to " + accountCommonResponseModel.getResponseCode() + ": " + accountCommonResponseModel.getMessage());
         }
 
-        log.debug("Update Account: {}", response.getBody().asString());
+        log.debug("Update Account: {}", accountCommonResponseModel.getMessage());
     }
 
     public void deleteAccount(String email, String password) {
@@ -43,28 +48,56 @@ public class AccountApiService extends BaseApiService {
         formParams.put("password", password);
 
         Response response = restClient.delete(DELETE_ACCOUNT_ENDPOINT, formParams);
+        AccountCommonResponseModel accountCommonResponseModel = response.getBody().as(AccountCommonResponseModel.class);
 
-        if (response.jsonPath().getInt("responseCode") != 200) {
-            throw new RuntimeException("Account wasn't deleted due to " + response.jsonPath().getInt("responseCode") + ": " + response.getBody().asString());
+        if (accountCommonResponseModel.getResponseCode() != 200) {
+            throw new RuntimeException("Account wasn't deleted due to " + accountCommonResponseModel.getResponseCode() + ": " + accountCommonResponseModel.getMessage());
         }
 
-        log.debug("Delete account: {}", response.getBody().asString());
+        log.debug("Delete account: {}", accountCommonResponseModel.getMessage());
     }
 
+    /**
+     * Построен поверх {@link #getAccountDetailsByEmail(String)}, а не поверх собственного запроса.
+     * Раньше метод читал тело через {@code jsonPath().getString("user.first_name")} — путь-строка,
+     * которую компилятор не проверяет; именно на ней однажды был получен тихий {@code null}
+     * из-за пропущенного префикса {@code user.}. Теперь поле берётся из модели.
+     */
     public String getUserFirstnameByEmail(String email) {
 
+        AccountResponseModel accountResponseModel = getAccountDetailsByEmail(email);
+
+        log.debug("Get account's first name: {}", accountResponseModel.getFirstName());
+
+        return accountResponseModel.getFirstName();
+    }
+
+    /**
+     * Принимает КОНВЕРТ, отдаёт ВЛОЖЕННУЮ модель — в этом вся асимметрия метода.
+     * <p>
+     * {@code as(...)} применяется к корню тела, поэтому разбирать обязан
+     * {@link api.models.ResponseAccountContainerModel}. Но наружу конверт не отдаётся: он
+     * транспортный, а {@code responseCode} уже проверен здесь же. Имя метода обещает детали
+     * аккаунта — их и возвращаем.
+     * <p>
+     * Порядок строк важен: разбор тела идёт ДО проверки кода ответа, поэтому конверт обязан
+     * описывать и ключи ветки ошибки ({@code message}) — иначе на любом не-200 разбор
+     * развалится внутри Jackson, и проверка ниже не выполнится никогда.
+     */
+    public AccountResponseModel getAccountDetailsByEmail(String email) {
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("email", email);
 
         Response response = restClient.get(GET_ACCOUNT_BY_EMAIL_ENDPOINT, queryParams);
+        ResponseAccountContainerModel responseAccountContainerModel = response.getBody().as(ResponseAccountContainerModel.class);
 
-        if (response.jsonPath().getInt("responseCode") != 200) {
-            throw new RuntimeException("Unable to get account due to " + response.jsonPath().getInt("responseCode") + ": " + response.getBody().asString());
+        if (responseAccountContainerModel.getResponseCode() != 200) {
+            throw new RuntimeException("Unable to get account due to " + responseAccountContainerModel.getResponseCode() + ": " + responseAccountContainerModel.getMessage());
         }
 
         log.debug("Get account's details: {}", response.getBody().asString());
 
-        return response.jsonPath().getString("user.first_name");
+        return responseAccountContainerModel.getAccountResponseModel();
     }
 
     private Map<String, String> buildFormParams(AccountModel model) {

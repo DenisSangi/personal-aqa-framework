@@ -1,12 +1,13 @@
 package api.services;
 
-import api.models.AccountFactory;
 import api.models.AccountModel;
-import config.FrameworkConfig;
+import api.models.AccountResponseModel;
 import core.TestAccountFixture;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import utils.RandomDataGenerator;
 
+import static api.models.AccountFactory.createValidAccountModel;
 import static org.testng.Assert.*;
 
 public class AccountApiServiceTest {
@@ -14,7 +15,7 @@ public class AccountApiServiceTest {
     AccountApiService accountApiService = new AccountApiService();
     LoginApiService loginApiService = new LoginApiService();
 
-    private final AccountModel accountModelValid = AccountFactory.createValidAccountModel();
+    private final AccountModel accountModelValid = createValidAccountModel();
 
     @AfterMethod(alwaysRun = true)
     public void deleteTestingData() {
@@ -43,5 +44,22 @@ public class AccountApiServiceTest {
         accountApiService.createAccount(accountModelValid);
         accountApiService.updateAccount(accountModelValid.toBuilder().firstName(newFirstName).build());
         assertEquals(accountApiService.getUserFirstnameByEmail(accountModelValid.getEmail()), newFirstName);
+    }
+
+    @Test
+    public void getAccountDetailsByEmailTest() {
+        accountApiService.createAccount(accountModelValid);
+        AccountResponseModel accountResponseModel = accountApiService.getAccountDetailsByEmail(accountModelValid.getEmail());
+        assertEquals(accountResponseModel.getBirthDay(), accountModelValid.getBirthDate());
+        assertEquals(accountResponseModel.getBirthMonth(), accountModelValid.getBirthMonth());
+        assertEquals(accountResponseModel.getBirthYear(), accountModelValid.getBirthYear());
+        assertEquals(accountResponseModel.getFirstName(), accountModelValid.getFirstName());
+        assertEquals(accountResponseModel.getLastName(), accountModelValid.getLastName());
+    }
+
+    @Test
+    public void getAccountDetailsByEmailExceptionTest() {
+        RuntimeException exception = expectThrows(RuntimeException.class, () -> accountApiService.getAccountDetailsByEmail(RandomDataGenerator.generateEmail()));
+        assertTrue(exception.getMessage().contains("Unable to get account due to 404"));
     }
 }
