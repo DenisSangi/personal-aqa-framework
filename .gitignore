@@ -17,3 +17,4 @@ src/main/resources/dbconnect.properties
 /.allure/
 /curriculum/
 /theory/
+.env
