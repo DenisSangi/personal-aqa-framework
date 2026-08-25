@@ -7,7 +7,9 @@ services:
       - jenkins-controller-data:/var/jenkins_home
 
   paf-agent-1:
-    image: jenkins/inbound-agent:jdk21
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
     environment:
       JENKINS_URL: http://jenkins:8080/
       JENKINS_AGENT_NAME: paf-agent-1

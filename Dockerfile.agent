@@ -1,0 +1,5 @@
+FROM jenkins/inbound-agent:jdk21
+USER root
+RUN curl https://dlcdn.apache.org/maven/maven-3/3.9.16/binaries/apache-maven-3.9.16-bin.tar.gz -o /tmp/maven.tar.gz -L -f -s && tar -zxf /tmp/maven.tar.gz -C /opt && rm /tmp/maven.tar.gz
+ENV PATH="${PATH}:/opt/apache-maven-3.9.16/bin"
+USER jenkins
