@@ -127,7 +127,7 @@ pipeline {
     stages {
         stage('test suite run') {
             steps {
-                sh 'echo "BASE_URL=$BASE_URL, SUITE=$SUITE"'
+                sh "echo BASE_URL=$BASE_URL, SUITE=${params.SUITE}"
                 sh "mvn clean test -Dsurefire.suiteXmlFile=src/test/resources/test-suites/${params.SUITE}.xml -Dselenide.headless=true"
             }
         }
