@@ -1,6 +1,7 @@
 package core;
 
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.IRetryAnalyzer;
@@ -25,6 +26,9 @@ public class RetryOnFailureAnalyzer implements IRetryAnalyzer {
     private boolean isTransient(Throwable throwable) {
         while (throwable != null) {
             if (throwable instanceof TimeoutException || throwable instanceof StaleElementReferenceException) {
+                return true;
+            }
+            if (throwable instanceof ElementClickInterceptedException && throwable.getMessage().contains("Other element would receive the click: <iframe")) {
                 return true;
             }
             throwable = throwable.getCause();
