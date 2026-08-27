@@ -121,7 +121,7 @@ pipeline {
         DB_NAME = 'aqa_db'
         DB_USERNAME = 'postgres_user'
         DB_PASSWORD = credentials('DB_PASSWORD')
-        BASE_URL = ENV_URLS[params.ENVIRONMENT]
+        BASE_URL ="${ENV_URLS[params.ENVIRONMENT]}"
     }
 
     stages {
