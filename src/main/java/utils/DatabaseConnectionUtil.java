@@ -12,9 +12,10 @@ import java.util.Map;
 public class DatabaseConnectionUtil {
 
     private final String dbName, dbUserName, dbPassword, host, port;
+    private static final int CONNECT_TIMEOUT = 5, SOCKET_TIMEOUT = 5;
 
     private Connection getConnection() throws Exception {
-        String url = String.format("jdbc:postgresql://%s:%s/%s", host, port, dbName);
+        String url = String.format("jdbc:postgresql://%s:%s/%s?connectTimeout=%d&socketTimeout=%d", host, port, dbName, CONNECT_TIMEOUT, SOCKET_TIMEOUT);
         Connection connection = DriverManager.getConnection(url, dbUserName, dbPassword);
 
         if (connection == null || connection.isClosed()) {
@@ -43,7 +44,7 @@ public class DatabaseConnectionUtil {
                 results.add(row);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to execute query", e);
+            throw new RuntimeException("Failed to execute query: " + (e.getCause() == null ? e.getMessage() : e.getMessage() + " " + e.getCause()), e);
         }
 
         return results;
@@ -65,7 +66,7 @@ public class DatabaseConnectionUtil {
             }
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to execute update query", e);
+            throw new RuntimeException("Failed to execute update query: " + (e.getCause() == null ? e.getMessage() : e.getMessage() + " " + e.getCause()), e);
         }
     }
 }
