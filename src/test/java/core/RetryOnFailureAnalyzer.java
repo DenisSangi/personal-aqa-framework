@@ -28,7 +28,7 @@ public class RetryOnFailureAnalyzer implements IRetryAnalyzer {
             if (throwable instanceof TimeoutException || throwable instanceof StaleElementReferenceException) {
                 return true;
             }
-            if (throwable instanceof ElementClickInterceptedException && throwable.getMessage().contains("Other element would receive the click: <iframe")) {
+            if (throwable instanceof ElementClickInterceptedException && throwable.getMessage() != null && throwable.getMessage().contains("Other element would receive the click: <iframe")) {
                 return true;
             }
             throwable = throwable.getCause();
