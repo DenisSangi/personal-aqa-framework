@@ -24,7 +24,7 @@
 #              Ссылка = репозиторий:тег (ср. groupId:artifactId в Maven),
 #              lts = стабильная линия Long Term Support.
 #    ports:    "хост:контейнер". Публикуем ТОЛЬКО веб-интерфейс, чтобы
-#              открыть http://localhost:8080 в браузере на Маке. Порт агента
+#              открыть http://localhost:8085 в браузере на Маке. Порт агента
 #              (50000) сознательно не публикуется: агент живёт в этой же
 #              docker-сети и достаёт контроллер напрямую, минуя хост.
 #    volumes:  named volume. Всё состояние Jenkins лежит внутри контейнера
@@ -68,7 +68,7 @@ services:
   jenkins:
     image: jenkins/jenkins:lts
     ports:
-      - "8080:8080"
+      - "8085:8080"
     volumes:
       - jenkins-controller-data:/var/jenkins_home
 
