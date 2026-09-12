@@ -2,7 +2,6 @@ package elements;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebElementCondition;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.*;
@@ -14,15 +13,6 @@ public abstract class BaseElement<T extends BaseElement<T>> {
     protected SelenideElement element;
     private static final String AD_FRAME = "ins[data-vignette-loaded='true'] iframe";
 
-    /**
-     * @deprecated leaks Selenide {$/$x locator} into POM
-     * Use {@link #BaseElement(By locator)}, {@link #BaseElement(String cssSelector)}
-     * Removed once every POM is migrated
-     */
-    @Deprecated(forRemoval = true)
-    public BaseElement(SelenideElement selenideElement) {
-        this.element = selenideElement;
-    }
 
     public BaseElement(By locator) {
         this.element = Selenide.$(locator);
@@ -39,32 +29,6 @@ public abstract class BaseElement<T extends BaseElement<T>> {
         element.should(exist);
         element.scrollIntoView(true);
         element.shouldBe(visible);
-        return (T) this;
-    }
-
-    /**
-     * @deprecated leaks Selenide {@code Condition} into POM
-     * Use {@link #shouldBeVisible()}, {@link #shouldBeClickable()}, {@link #shouldHaveText(String)}
-     * Removed once every POM is migrated
-     */
-    @Deprecated(forRemoval = true)
-    @SuppressWarnings("unchecked")
-    public T shouldBe(WebElementCondition... conditions) {
-        waitAndGetElement();
-        element.shouldBe(conditions);
-        return (T) this;
-    }
-
-    /**
-     * @deprecated leaks Selenide {@code Condition} into POM
-     * Use {@link #shouldBeVisible()}, {@link #shouldBeClickable()}, {@link #shouldHaveText(String)}
-     * Removed once every POM is migrated
-     */
-    @Deprecated(forRemoval = true)
-    @SuppressWarnings("unchecked")
-    public T shouldHave(WebElementCondition... conditions) {
-        waitAndGetElement();
-        element.shouldHave(conditions);
         return (T) this;
     }
 

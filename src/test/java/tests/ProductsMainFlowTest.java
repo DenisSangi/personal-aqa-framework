@@ -1,7 +1,5 @@
 package tests;
 
-import com.codeborne.selenide.Selenide;
-import config.FrameworkConfig;
 import constants.TableHeaders;
 import core.BaseTest;
 import org.testng.annotations.BeforeMethod;
@@ -22,7 +20,7 @@ public class ProductsMainFlowTest extends BaseTest {
 
     @BeforeMethod
     public void setup() {
-        Selenide.open(FrameworkConfig.APP_URL);
+        openApp();
     }
 
     @Test

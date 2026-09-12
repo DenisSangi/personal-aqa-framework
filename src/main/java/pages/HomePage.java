@@ -2,26 +2,23 @@ package pages;
 
 import elements.ButtonElement;
 import io.qameta.allure.Step;
-
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import org.openqa.selenium.By;
 
 public class HomePage {
 
-    private final ButtonElement signupLoginLink = new ButtonElement($("a[href='/login']"));
-    private final ButtonElement productsLink = new ButtonElement($("a[href='/products']"));
-    private final ButtonElement loggedUsername = new ButtonElement($x("//a[contains(text(), 'Logged in as')]"));
+    private final ButtonElement signupLoginLink = new ButtonElement("a[href='/login']");
+    private final ButtonElement productsLink = new ButtonElement("a[href='/products']");
+    private final ButtonElement loggedUsername = new ButtonElement(By.xpath("//a[contains(text(), 'Logged in as')]"));
 
 
     public HomePage verifyPageIsOpen() {
-        signupLoginLink.shouldBe(clickable);
+        signupLoginLink.shouldBeClickable();
         return this;
     }
 
     public HomePage verifyLoggedUsername(String username) {
-        loggedUsername.shouldBe(visible);
-        loggedUsername.shouldHave(text(username));
+        loggedUsername.shouldBeVisible();
+        loggedUsername.shouldHaveText(username);
         return this;
     }
 

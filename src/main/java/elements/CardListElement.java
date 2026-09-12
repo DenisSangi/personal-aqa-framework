@@ -1,20 +1,9 @@
 package elements;
 
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 public class CardListElement extends BaseElement<CardListElement> {
-
-    /**
-     * @deprecated leaks Selenide {$/$x locator} into POM
-     * Use {@link #CardListElement(String cssSelector)}, {@link #CardListElement(By locator)}
-     * Removed once every POM is migrated
-     */
-    @Deprecated(forRemoval = true)
-    public CardListElement(SelenideElement selenideElement) {
-        super(selenideElement);
-    }
 
     public CardListElement(String cssSelector) {
         super(cssSelector);

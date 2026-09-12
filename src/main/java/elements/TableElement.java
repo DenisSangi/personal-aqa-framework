@@ -1,22 +1,13 @@
 package elements;
 
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import java.util.List;
 
-public class TableElement extends BaseElement<TableElement> {
+import static com.codeborne.selenide.CollectionCondition.size;
 
-    /**
-     * @deprecated leaks Selenide {$/$x locator} into POM
-     * Use {@link #TableElement(String cssSelector)}, {@link #TableElement(By locator)}
-     * Removed once every POM is migrated
-     */
-    @Deprecated(forRemoval = true)
-    public TableElement(SelenideElement selenideElement) {
-        super(selenideElement);
-    }
+public class TableElement extends BaseElement<TableElement> {
 
     public TableElement(String cssSelector) {
         super(cssSelector);
@@ -51,23 +42,20 @@ public class TableElement extends BaseElement<TableElement> {
         return getRows().get(rowIndex + 1).$$x(".//td").get(columnIndex).getText();
     }
 
-    private int getRowCount() {
-        return getRows().size() - 1;
-    }
-
     public String getRowText(int index) {
         return getRows().get(index).getText();
     }
     //endregion
 
     //region verifiers
-    public boolean shouldHaveSize(int expectedSize) {
-        return getRowCount() == expectedSize;
+    public TableElement shouldHaveSize(int expectedSize) {
+        getTableRowsWithoutHeader().shouldHave(size(expectedSize));
+        return this;
     }
 
     public boolean shouldHaveRowWithText(String text) {
         waitAndGetElement();
-        return getRows().texts().contains(shouldHaveText(text));
+        return getTableRowsWithoutHeader().texts().contains(shouldHaveText(text));
     }
     //endregion
 

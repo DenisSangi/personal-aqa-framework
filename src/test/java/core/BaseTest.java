@@ -3,6 +3,7 @@ package core;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import config.FrameworkConfig;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.testng.annotations.AfterMethod;
 
@@ -13,6 +14,14 @@ public class BaseTest {
     static {
         Configuration.timeout = DEFAULT_TIMEOUT;
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(false).savePageSource(true).includeSelenideSteps(false));
+    }
+
+    protected void openApp(String path) {
+        Selenide.open(FrameworkConfig.APP_URL + path);
+    }
+
+    protected void openApp() {
+        openApp("");
     }
 
     @AfterMethod(alwaysRun = true)

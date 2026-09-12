@@ -1,10 +1,15 @@
 package elements;
 
-import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
 
 public class DropdownElement extends BaseElement<DropdownElement> {
-    public DropdownElement(SelenideElement selenideElement) {
-        super(selenideElement);
+
+    public DropdownElement(String cssSelector) {
+        super(cssSelector);
+    }
+
+    public DropdownElement(By locator) {
+        super(locator);
     }
 
     public void selectOption(String option) {

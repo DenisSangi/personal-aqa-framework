@@ -1,7 +1,5 @@
 package tests;
 
-import com.codeborne.selenide.Selenide;
-import config.FrameworkConfig;
 import core.BaseTest;
 import core.TestAccountFixture;
 import org.testng.annotations.BeforeMethod;
@@ -19,7 +17,7 @@ public class LoginTest extends BaseTest {
 
     @BeforeMethod
     public void setup() {
-        Selenide.open(FrameworkConfig.APP_URL);
+        openApp();
     }
 
     @Test
