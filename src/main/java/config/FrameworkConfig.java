@@ -42,7 +42,9 @@ public class FrameworkConfig {
 
     /**
      * Возвращает значение настройки, перебирая источники в фиксированном порядке:
-     * переменная окружения → системное свойство (-D) → framework.properties → dbconnect.properties.
+     * переменная окружения (BASE_URL=somesite.com mvn clean test -Dsurefire.suiteXmlFile=src/test/resources/test-suites/smoke.xml)
+     * → системное свойство (-D) (mvn clean test -DBASE_URL=somesite.com -Dsurefire.suiteXmlFile=src/test/resources/test-suites/smoke.xml)
+     * → framework.properties → dbconnect.properties.
      * <p>
      * Порядок здесь — не оформление, а контракт, и на нём держится параметризация CI.
      * Внешние источники (env, -D) стоят ВЫШЕ файлов, поэтому значение, переданное
