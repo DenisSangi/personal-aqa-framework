@@ -7,8 +7,6 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.ProductsPage;
 
-import static com.codeborne.selenide.Selenide.$;
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class TableElementTest extends BaseTest {
@@ -18,7 +16,7 @@ public class TableElementTest extends BaseTest {
     public void testGetRows() {
         Selenide.open(FrameworkConfig.APP_URL);
         ProductsPage productsPage = homePage.verifyPageIsOpen().clickProductsLink().verifyPageIsOpen();
-        TableElement cartTable = new TableElement($("table[id='cart_info_table'] > tbody"));
+        TableElement cartTable = new TableElement("table[id='cart_info_table'] > tbody");
         String expectedText = "Blue Top";
         productsPage.addProductToCart(expectedText)
                 .verifyModalIsDisplayed()
@@ -26,8 +24,8 @@ public class TableElementTest extends BaseTest {
                 .addProductToCart("Summer White Top")
                 .verifyModalIsDisplayed();
         Selenide.open(FrameworkConfig.APP_URL + "/view_cart");
-        assertEquals(cartTable.getRows().size(), 2);
-        assertTrue(cartTable.getRows().get(0).text().contains(expectedText));
+        cartTable.shouldHaveSize(2);
+        assertTrue(cartTable.getRowText(0).contains(expectedText));
     }
 
 }
