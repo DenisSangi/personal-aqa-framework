@@ -96,6 +96,8 @@ docker compose up -d
 Copy `dbconnect.example.properties` to `src/main/resources/dbconnect.properties` and fill in
 your own values — the real file is git-ignored and never committed.
 
+Copy `.env.example` to `.env` and set DB_PASSWORD — the same value goes to Jenkins credential DB_PASSWORD
+
 ## CI
 
 `docker-compose-jenkins.yml` starts a Jenkins controller (`jenkins/jenkins:lts`) and builds an
