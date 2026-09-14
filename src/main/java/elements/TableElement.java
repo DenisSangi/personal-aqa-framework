@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.size;
+import static com.codeborne.selenide.Condition.exist;
+import static com.codeborne.selenide.Condition.text;
 
 public class TableElement extends BaseElement<TableElement> {
 
@@ -53,9 +55,10 @@ public class TableElement extends BaseElement<TableElement> {
         return this;
     }
 
-    public boolean shouldHaveRowWithText(String text) {
+    public TableElement shouldHaveRowWithText(String expectedText) {
         waitAndGetElement();
-        return getTableRowsWithoutHeader().texts().contains(shouldHaveText(text));
+        getTableRowsWithoutHeader().findBy(text(expectedText)).should(exist);
+        return this;
     }
     //endregion
 
