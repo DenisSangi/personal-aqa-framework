@@ -8,7 +8,7 @@
             <class name="api.services.LoginApiServiceTest"/>
             <class name="api.services.AccountApiServiceTest"/>
             <class name ="api.services.ProductApiServiceTest"/>
-            <class name="FrameworkConfigSmokeTest"/>
+            <class name="TestingSiteAvailabilitySmokeTest"/>
             <class name="database.UserRecordLifecycleTest"/>
             <class name="elements.ButtonElementTest"/>
             <class name="elements.DropdownElementTest"/>

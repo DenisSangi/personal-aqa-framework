@@ -4,13 +4,13 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class FrameworkConfigSmokeTest {
+public class TestingSiteAvailabilitySmokeTest {
 
     private static final String PRODUCTS_ENDPOINT = "/products";
 
     @Test
     public void statusCodeTest() {
-        Assert.assertEquals(200, getStatusCode(FrameworkConfig.APP_URL));
+        Assert.assertEquals(getStatusCode(FrameworkConfig.APP_URL), 200);
     }
 
     @Test

@@ -52,13 +52,13 @@ public class ProductsMainFlowTest extends BaseTest {
                 .clickModalViewCartButton();
         cartPage.verifyPageIsOpen().verifyCartTableSize(3);
         assertEquals(cartPage.getCellValueInCartTable(0, TableHeaders.CT_DESCRIPTION.getHeaderName()), testingProductOne + productCategory);
-        assertEquals(cartPage.getCellValueInCartTable(0, TableHeaders.CT_PRICE.getHeaderName()), "Rs. 600");
+        assertEquals(cartPage.getCellValueInCartTable(0, TableHeaders.CT_PRICE.getHeaderName()), getPrice(600));
         assertEquals(cartPage.getCellValueInCartTable(0, TableHeaders.CT_QUANTITY.getHeaderName()), "1");
         assertEquals(cartPage.getCellValueInCartTable(1, TableHeaders.CT_DESCRIPTION.getHeaderName()), testingProductTwo + productCategory);
-        assertEquals(cartPage.getCellValueInCartTable(1, TableHeaders.CT_PRICE.getHeaderName()), "Rs. 500");
+        assertEquals(cartPage.getCellValueInCartTable(1, TableHeaders.CT_PRICE.getHeaderName()), getPrice(500));
         assertEquals(cartPage.getCellValueInCartTable(1, TableHeaders.CT_QUANTITY.getHeaderName()), "1");
         assertEquals(cartPage.getCellValueInCartTable(2, TableHeaders.CT_DESCRIPTION.getHeaderName()), testingProductThree + productCategory);
-        assertEquals(cartPage.getCellValueInCartTable(2, TableHeaders.CT_PRICE.getHeaderName()), "Rs. 400");
+        assertEquals(cartPage.getCellValueInCartTable(2, TableHeaders.CT_PRICE.getHeaderName()), getPrice(400));
         assertEquals(cartPage.getCellValueInCartTable(2, TableHeaders.CT_QUANTITY.getHeaderName()), "2");
     }
 
@@ -77,5 +77,9 @@ public class ProductsMainFlowTest extends BaseTest {
                 .verifyModalCheckoutTextIsDisplayed()
                 .verifyModalRegisterLoginButtonIsDisplayed()
                 .verifyModalContinueOnCartButtonIsDisplayed();
+    }
+
+    private String getPrice(int price) {
+        return "Rs. %d".formatted(price);
     }
 }

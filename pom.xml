@@ -138,8 +138,7 @@
             <version>${lombok.version}</version>
         </dependency>
 
-        <!-- Jsoup — парсер HTML. Заведён по образцу референса (там им вытаскивают id из ответов
-             Django-админки). В текущем коде фреймворка пока не используется. -->
+        <!-- Jsoup — парсер HTML. В текущем коде фреймворка пока не используется. -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
