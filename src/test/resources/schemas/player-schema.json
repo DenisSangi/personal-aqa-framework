@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Player",
+  "type": "object",
+  "required": ["id", "username", "email", "country", "level", "balance", "createdAt"],
+  "properties": {
+    "id": { "type": "integer" },
+    "username": { "type": "string", "minLength": 3, "maxLength": 50 },
+    "email": { "type": "string" },
+    "country": { "type": "string", "minLength": 2, "maxLength": 2 },
+    "level": { "type": "integer", "minimum": 1 },
+    "balance": { "type": "number", "minimum": 0 },
+    "createdAt": { "type": "string" }
+  }
+}
